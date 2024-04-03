@@ -31,9 +31,11 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
         val data: MutableList<DataObject> = ArrayList()
-        for(i in 1..10)
-            data.add(DataObject("Title $i"))
+        data.add(DataObject("Debit", "$2,300.00", "1234 5678 9012 3456"))
+        data.add(DataObject("Credit", "$15,000.00", "9876 5432 1098 7654"))
+        data.add(DataObject("Savings", "$36,752.00", "2468 0135 7924 6801"))
 
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 

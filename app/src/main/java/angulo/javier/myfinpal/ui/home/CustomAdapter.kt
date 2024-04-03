@@ -25,7 +25,9 @@ class CustomAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvTitle.text = data[position].title
+        holder.tvType.text = data[position].type
+        holder.tvAmount.text = data[position].amount
+        holder.tvCardNumber.text = data[position].cardNumber
 
         items.add(holder.card)
     }
@@ -38,7 +40,9 @@ class CustomAdapter (
     internal constructor(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+        val tvType: TextView = itemView.findViewById(R.id.tvType)
+        val tvAmount: TextView = itemView.findViewById(R.id.tvAmount)
+        val tvCardNumber: TextView = itemView.findViewById(R.id.tvCardNumber)
         val card: CardView = itemView.findViewById(R.id.card)
     }
 }
