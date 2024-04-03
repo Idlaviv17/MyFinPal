@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    lateinit var rvList : RecyclerView
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -27,6 +30,20 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val data: MutableList<DataObject> = ArrayList()
+        for(i in 1..10)
+            data.add(DataObject("Title $i"))
+
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        val adapter = CustomAdapter(data)
+
+        rvList = _binding!!.rvList
+
+        rvList.layoutManager = layoutManager
+        rvList.setHasFixedSize(true)
+        rvList.adapter = adapter
 
         return root
     }
