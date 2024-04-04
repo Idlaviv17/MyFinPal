@@ -8,9 +8,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import angulo.javier.myfinpal.R
 
-class CustomAdapter (
-    private val data: List<DataObject>
-) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomCardAdapter (
+    private val data: List<CardDataObject>
+) : RecyclerView.Adapter<CustomCardAdapter.ViewHolder>() {
 
     private val items: MutableList<CardView>
 
