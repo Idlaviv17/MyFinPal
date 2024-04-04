@@ -12,14 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="angulo.javier.myfinpal.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_budget"
+        android:name="angulo.javier.myfinpal.ui.budget.BudgetFragment"
+        android:label="@string/title_budget"
+        tools:layout="@layout/fragment_budget" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="angulo.javier.myfinpal.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_new_record"
+        android:name="angulo.javier.myfinpal.ui.new_record.NewRecordFragment"
+        android:label="@string/title_new_record"
+        tools:layout="@layout/fragment_new_record" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="angulo.javier.myfinpal.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/navigation_configuration"
+        android:name="angulo.javier.myfinpal.ui.configuration.ConfigurationFragment"
+        android:label="@string/title_configuration"
+        tools:layout="@layout/fragment_configuration" />
 </navigation>
