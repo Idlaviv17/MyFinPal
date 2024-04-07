@@ -12,10 +12,483 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa"
-        android:text="Budget"
-        android:paddingLeft="15dp"
+        android:text="@string/title_budget"
+        android:layout_marginLeft="15dp"
         android:paddingRight="15dp"
         android:textColor="@color/black"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        />
 
+    <!-- Summary of expenses-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textBudgetMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="@string/budget_summary_month"
+                android:textColor="@color/gray_budget_text"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/textBudgetCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="@string/budget_summary_current_budget"
+                android:paddingTop="10dp"
+                android:textColor="@color/gray_budget_text"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/textBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="$3,050 / $5,000"
+                android:textColor="@color/gray_budget_text"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/budgetSummaryBarBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/budget_summary_bar_background"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/budget_summary_bar"
+                android:layout_alignRight="@+id/budgetSummaryBarBackground"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Revenues and expenditures -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
+        <!--  Revenues Layout -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <!-- Background's ImageView -->
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/budget_revenues_background"
+                    android:layout_centerInParent="true"/>
+                <!-- Icon's ImageView -->
+                <ImageView
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:src="@drawable/budget_revenues_arrow_up"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                >
+                <TextView
+                    android:id="@+id/textRevenues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="@string/budget_revenues"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/textRevenuesNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="$3,050"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Expenditures layout -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <!-- Background's ImageView -->
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/budget_expenditures_background"
+                    android:layout_centerInParent="true"/>
+                <!-- Icon's ImageView -->
+                <ImageView
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:src="@drawable/budget_expenditures_arrow_below"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp">
+                <TextView
+                    android:id="@+id/textExpenditures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="@string/budget_expenditures"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/textExpendituresNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="$5,000"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Menu -->
+    <TableLayout
+        android:id="@+id/menuTableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TableRow
+            android:layout_marginBottom="40dp">
+            <!-- Food menu button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <!-- Background's ImageView -->
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/budget_menu_food_background"
+                        android:layout_centerInParent="true"/>
+                    <!-- Icon's ImageView-->
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/budget_menu_food"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:paddingTop="10dp"
+                    android:text="@string/budget_menu_food"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/textBudgetMenuFoodNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="$35.96"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+            <!-- Shopping menu button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <!-- Background's ImageView -->
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/budget_menu_shopping_background"
+                        android:layout_centerInParent="true"/>
+                    <!-- ImageView para la flecha -->
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/budget_menu_shopping"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:paddingTop="10dp"
+                    android:text="@string/budget_menu_shopping"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/textBudgetMenuShoppingNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="$85.96"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+            <!-- Health menu button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <!-- Background's ImageView -->
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/budget_menu_health_background"
+                        android:layout_centerInParent="true"/>
+                    <!-- Icon's ImageView -->
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/budget_menu_health"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:paddingTop="10dp"
+                    android:text="@string/budget_menu_health"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/textBudgetMenuHealthNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="96.66"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginBottom="40dp">
+            <!-- Activities menu button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <!-- Background's ImageView -->
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/budget_menu_activities_background"
+                        android:layout_centerInParent="true"/>
+                    <!-- Icon's ImageView -->
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/budget_menu_activities"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:paddingTop="10dp"
+                    android:text="@string/budget_menu_activities"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/textBudgetMenuActivitieshNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="$335.96"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+            <!-- Membership menu button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <!-- Background's ImageView -->
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/budget_menu_membership_background"
+                        android:layout_centerInParent="true"/>
+                    <!-- Icon's ImageView -->
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/budget_menu_membership"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:paddingTop="10dp"
+                    android:text="@string/budget_menu_memberships"
+                    android:background="@color/gray_budget_button"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/textBudgetMenuMembershipNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="$85.96"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+            <!-- Restaurants menu button-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <!-- Background's ImageView -->
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/budget_menu_restaurants_background"
+                        android:layout_centerInParent="true"/>
+                    <!-- Icon's ImageView -->
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/budget_menu_restaurants"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:paddingTop="10dp"
+                    android:text="@string/budget_menu_restaurants"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/textBudgetMenuRestaurantsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="$25.96"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/gray_budget_button"
+            android:drawableLeft="@drawable/budget_button_icon"
+            android:fontFamily="@font/abel"
+            android:text="@string/budget_button"
+            android:textAllCaps="false"
+            android:textColor="@color/gray_budget_text"
+            android:textSize="15sp"
+            app:cornerRadius="10dp"
+            />
+    </LinearLayout>
 </LinearLayout>
