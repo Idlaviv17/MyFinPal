@@ -46,6 +46,11 @@ class NewRecordFragment : Fragment() {
             R.layout.spinner_item_text
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        adapter.sort { item1, item2 ->
+            item1.toString().compareTo(item2.toString())
+        }
+
         spinner.adapter = adapter
     }
 }
