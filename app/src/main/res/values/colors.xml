@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple_card">#8438FF</color>
     <color name="purple_card_light">#DCC7FF</color>
+    <color name="body_text">#60708F</color>
 </resources>
