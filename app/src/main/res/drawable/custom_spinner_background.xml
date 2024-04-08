@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <padding android:right="4dp"
+                android:left="12dp" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/arrow_spinner"
+        android:gravity="end|center_vertical"
+        android:left="20dp"/>
+</layer-list>
