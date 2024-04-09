@@ -16,4 +16,27 @@
     <string name="budget_revenues">Revenues</string>
     <string name="budget_expenditures">Expenditures</string>
     <string name="budget_button">Edit budget</string>
+
+    <string-array name="establishments">
+        <item>Netflix</item>
+        <item>Amazon Prime</item>
+        <item>Disney+</item>
+        <item>HBO Max</item>
+    </string-array>
+
+    <string-array name="payment_methods">
+        <item>Credit Card</item>
+        <item>Debit Card</item>
+        <item>PayPal</item>
+        <item>Bank Transfer</item>
+        <item>Cash</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Food</item>
+        <item>Shopping</item>
+        <item>Health</item>
+        <item>Activities</item>
+        <item>Restaurants</item>
+    </string-array>
 </resources>
