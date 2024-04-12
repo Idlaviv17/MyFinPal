@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment() {
@@ -26,6 +28,13 @@ class HistoryFragment : Fragment() {
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val listItem = binding.listItem
+
+        listItem.setOnClickListener {
+            val navController = findNavController()
+            navController.navigate(R.id.action_navigation_history_to_navigation_history_detail)
+        }
 
         return root
     }
