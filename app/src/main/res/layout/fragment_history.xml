@@ -18,4 +18,272 @@
         android:textColor="@color/black"
         android:textSize="36sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:orientation="vertical">
+
+        <!-- Single list element -->
+        <!-- TODO Fill it programmatically -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/image_style"
+                android:gravity="center"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/example_icon_netflix" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="Membresía Netflix"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="15.02.2023"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="- $ 29.90"
+                android:fontFamily="@font/abel"
+                android:textColor="@color/body_text"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <!-- Single list element -->
+        <!-- TODO Fill it programmatically -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/image_style"
+                android:gravity="center"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/example_icon_xbox" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="Xbox Game Pass"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="10.02.2023"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="- $ 10.00"
+                android:fontFamily="@font/abel"
+                android:textColor="@color/body_text"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <!-- Single list element -->
+        <!-- TODO Fill it programmatically -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/image_style"
+                android:gravity="center"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/example_icon_mc" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="Membresía Netflix"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="10.06.2023"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="- $ 129.00"
+                android:fontFamily="@font/abel"
+                android:textColor="@color/body_text"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <!-- Single list element -->
+        <!-- TODO Fill it programmatically -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/image_style"
+                android:gravity="center"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_round_1342" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="Diego´s transfer"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abel"
+                    android:textColor="@color/body_text"
+                    android:text="03.01.2023"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="+ $ 450.00"
+                android:fontFamily="@font/abel"
+                android:textColor="@color/body_text"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

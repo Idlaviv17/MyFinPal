@@ -29,9 +29,4 @@
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history" />
 
-    <fragment
-        android:id="@+id/navigation_configuration"
-        android:name="angulo.javier.myfinpal.ui.configuration.ConfigurationFragment"
-        android:label="@string/title_configuration"
-        tools:layout="@layout/fragment_configuration" />
 </navigation>
