@@ -15,7 +15,7 @@
             android:id="@+id/payment_logo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/history_icon"
+            android:src="@drawable/example_icon_netflix"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="30dp" />
 
@@ -135,7 +135,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="$Cost"
+                android:text="$199"
                 android:fontFamily="@font/abel"
                 android:textAlignment="textEnd"
                 android:textColor="@color/body_text"
