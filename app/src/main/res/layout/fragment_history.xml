@@ -27,11 +27,14 @@
         <!-- Single list element -->
         <!-- TODO Fill it programmatically -->
         <LinearLayout
+            android:id="@+id/list_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
 
             <LinearLayout
                 android:layout_width="50dp"
