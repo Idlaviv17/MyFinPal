@@ -150,6 +150,7 @@
         android:gravity="top"
         android:padding="10dp"
         android:scrollbars="vertical"
+        android:maxLines="20"
         android:textColor="@color/body_text" />
 
     <LinearLayout
