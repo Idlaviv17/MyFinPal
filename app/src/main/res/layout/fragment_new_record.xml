@@ -1,209 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.new_record.NewRecordFragment">
-
-    <TextView
-        android:id="@+id/textViewHome"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:fontFamily="@font/comfortaa"
-        android:text="New Record"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/black"
-        android:textSize="36sp" />
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ui.new_record.NewRecordFragment">
+
+        <TextView
+            android:id="@+id/textViewHome"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="New Record"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/black"
+            android:textSize="36sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:text="Recipient"
+                    android:textColor="@color/body_text"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/establishments_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_spinner_background"
+                    android:entries="@array/establishments"
+                    android:textAlignment="textStart" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:text="Payment Method"
+                    android:textColor="@color/body_text"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/payment_methods_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_spinner_background"
+                    android:entries="@array/payment_methods"
+                    android:textAlignment="textStart" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:text="Category"
+                    android:textColor="@color/body_text"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/categories_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_spinner_background"
+                    android:entries="@array/categories"
+                    android:textAlignment="textStart" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:text="Amount"
+                    android:textColor="@color/body_text"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/amount_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:hint="$--"
+                    android:singleLine="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="15"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/body_text"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/abel"
+                    android:text="Date"
+                    android:textColor="@color/body_text"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/date_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="date" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/abel"
-                android:text="Recipient"
-                android:textColor="@color/body_text"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/establishments_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/custom_spinner_background"
-                android:entries="@array/establishments"
-                android:textAlignment="textStart" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/abel"
-                android:text="Payment Method"
-                android:textColor="@color/body_text"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/payment_methods_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/custom_spinner_background"
-                android:entries="@array/payment_methods"
-                android:textAlignment="textStart" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/abel"
-                android:text="Category"
-                android:textColor="@color/body_text"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/categories_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/custom_spinner_background"
-                android:entries="@array/categories"
-                android:textAlignment="textStart" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/abel"
-                android:text="Amount"
+                android:text="Description"
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/amount_et"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/description_et"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_border"
                 android:fontFamily="@font/abel"
-                android:hint="$--"
-                android:singleLine="true"
-                android:inputType="numberDecimal"
-                android:maxLength="15"
-                android:textAlignment="textEnd"
-                android:textColor="@color/body_text"
-                android:textSize="20sp" />
+                android:gravity="top"
+                android:maxLines="20"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/body_text" />
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:fontFamily="@font/abel"
-        android:text="Description"
-        android:textColor="@color/body_text"
-        android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/description_et"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/edittext_border"
-        android:fontFamily="@font/abel"
-        android:gravity="top"
-        android:padding="10dp"
-        android:scrollbars="vertical"
-        android:maxLines="20"
-        android:textColor="@color/body_text" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:gravity="center_horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginTop="37dp"
+            android:gravity="center_horizontal">
 
-            <ImageButton
-                android:id="@+id/cancel_btn"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:src="@drawable/minus_button" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
+                <ImageButton
+                    android:id="@+id/cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/minus_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="Cancel\nMembership"
+                    android:textAlignment="center"
+                    android:textColor="@color/body_text"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/abel"
-                android:text="Cancel\nMembership"
-                android:textAlignment="center"
-                android:textColor="@color/body_text"
-                android:textSize="13sp" />
-        </LinearLayout>
+                android:layout_marginStart="60dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:gravity="center"
-            android:orientation="vertical">
+                <ImageButton
+                    android:id="@+id/accept_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/plus_button" />
 
-            <ImageButton
-                android:id="@+id/accept_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:src="@drawable/plus_button" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/abel"
-                android:text="Accept"
-                android:textAlignment="center"
-                android:textColor="@color/body_text"
-                android:textSize="13sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:text="Accept"
+                    android:textAlignment="center"
+                    android:textColor="@color/body_text"
+                    android:textSize="13sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
