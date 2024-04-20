@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.budget.BudgetEditFragment"
     android:orientation="vertical"
-    tools:context=".ui.budget.BudgetFragment">
+    android:layout_marginBottom="50dp">
 
     <TextView
         android:id="@+id/textViewHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa"
-        android:text="@string/title_budget"
+        android:text="@string/budget_button"
         android:layout_marginLeft="15dp"
         android:paddingRight="15dp"
         android:textColor="@color/black"
@@ -82,141 +83,36 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <!-- Revenues and expenditures -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp">
-        <!--  Revenues Layout -->
+        android:layout_height="350dp"
+        android:fillViewport="true">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-                <!-- Background's ImageView -->
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/budget_revenues_background" />
-                <!-- Icon's ImageView -->
-                <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:src="@drawable/budget_revenues_arrow_up"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_gravity="center_horizontal">
 
+            <!-- Sección de menú de comida -->
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                >
-                <TextView
-                    android:id="@+id/textRevenues"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:text="@string/budget_revenues"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="15sp"
-                    />
-                <TextView
-                    android:id="@+id/textRevenuesNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:text="$3,050"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Expenditures layout -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-                <!-- Background's ImageView -->
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/budget_expenditures_background"
-                    android:layout_centerInParent="true"/>
-                <!-- Icon's ImageView -->
-                <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:src="@drawable/budget_expenditures_arrow_below"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp">
-                <TextView
-                    android:id="@+id/textExpenditures"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:text="@string/budget_expenditures"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="15sp"/>
-                <TextView
-                    android:id="@+id/textExpendituresNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:text="$5,000"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Menu -->
-    <TableLayout
-        android:id="@+id/menuTableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:padding="16dp"
-        android:layout_marginTop="16dp" >
-
-        <TableRow
-            android:layout_marginBottom="40dp">
-            <!-- Food menu button -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                >
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingVertical="10dp">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                    <!-- Background's ImageView -->
+                    <!-- Fondo de ImageView -->
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/budget_menu_food_background"
-                        android:layout_centerInParent="true"/>
-                    <!-- Icon's ImageView-->
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/budget_menu_food_background" />
+                    <!-- Icono de ImageView -->
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -224,44 +120,52 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
+                    android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:paddingTop="10dp"
                     android:text="@string/budget_menu_food"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_down"/>
                 <TextView
                     android:id="@+id/textBudgetMenuFoodNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$35.96"
+                    android:text="$ --"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
 
-            <!-- Shopping menu button -->
+            <!-- Repite el patrón para cada sección del menú -->
+
+            <!-- Sección de menú de compras -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                >
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                    <!-- Background's ImageView -->
+                    <!-- Fondo de ImageView -->
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:src="@drawable/budget_menu_shopping_background"
                         android:layout_centerInParent="true"/>
-                    <!-- ImageView para la flecha -->
+                    <!-- Icono de ImageView -->
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -269,44 +173,52 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:paddingTop="10dp"
+                    android:textAlignment="center"
                     android:text="@string/budget_menu_shopping"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_down"/>
                 <TextView
                     android:id="@+id/textBudgetMenuShoppingNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$85.96"
+                    android:text="$ --"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
 
-            <!-- Health menu button -->
+            <!-- Continúa agregando más secciones de menú -->
+
+            <!-- Sección de menú de salud -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                >
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                    <!-- Background's ImageView -->
+                    <!-- Fondo de ImageView -->
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/budget_menu_health_background"
-                        android:layout_centerInParent="true"/>
-                    <!-- Icon's ImageView -->
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/budget_menu_health_background" />
+                    <!-- Icono de ImageView -->
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -314,47 +226,52 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:paddingTop="10dp"
+                    android:textAlignment="center"
                     android:text="@string/budget_menu_health"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_down"/>
                 <TextView
                     android:id="@+id/textBudgetMenuHealthNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="96.66"
+                    android:text="$ --"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
-        </TableRow>
 
-        <TableRow
-            android:layout_marginBottom="20dp">
-            <!-- Activities menu button -->
+            <!-- Continúa agregando más secciones de menú de la misma manera -->
+
+            <!-- Sección de actividades -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                >
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                    <!-- Background's ImageView -->
+                    <!-- Fondo de ImageView -->
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/budget_menu_activities_background" />
-                    <!-- Icon's ImageView -->
+                        android:src="@drawable/budget_menu_activities_background"
+                        android:layout_centerInParent="true"/>
+                    <!-- Icono de ImageView -->
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -362,44 +279,51 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:paddingTop="10dp"
+                    android:textAlignment="center"
                     android:text="@string/budget_menu_activities"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_down"/>
                 <TextView
-                    android:id="@+id/textBudgetMenuActivitieshNumber"
+                    android:id="@+id/textBudgetMenuActivitiesNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$335.96"
+                    android:text="$ --"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
 
-            <!-- Membership menu button -->
+            <!-- Continúa agregando más secciones de menú -->
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                >
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                    <!-- Background's ImageView -->
+                    <!-- Fondo de ImageView -->
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/budget_menu_membership_background"
-                        android:layout_centerInParent="true"/>
-                    <!-- Icon's ImageView -->
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/budget_menu_membership_background" />
+                    <!-- Icono de ImageView -->
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -407,45 +331,47 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:paddingTop="10dp"
+                    android:textAlignment="center"
                     android:text="@string/budget_menu_memberships"
-                    android:background="@color/gray_budget_button"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_down"/>
                 <TextView
-                    android:id="@+id/textBudgetMenuMembershipNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$85.96"
+                    android:text="$ --"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
-
-            <!-- Restaurants menu button-->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                >
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                    <!-- Background's ImageView -->
+                    <!-- Fondo de ImageView -->
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/budget_menu_restaurants_background"
-                        android:layout_centerInParent="true"/>
-                    <!-- Icon's ImageView -->
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/budget_menu_restaurants_background" />
+                    <!-- Icono de ImageView -->
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -453,44 +379,96 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:paddingTop="10dp"
+                    android:textAlignment="center"
                     android:text="@string/budget_menu_restaurants"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_down"/>
                 <TextView
-                    android:id="@+id/textBudgetMenuRestaurantsNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$25.96"
+                    android:text="$ --"
                     android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_arrow_down"/>
             </LinearLayout>
-        </TableRow>
-    </TableLayout>
-
+        </LinearLayout>
+    </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/btnEditBudget"
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/gray_budget_button"
-            android:drawableLeft="@drawable/budget_button_icon"
-            android:fontFamily="@font/abel"
-            android:text="@string/budget_button"
-            android:textAllCaps="false"
-            android:textColor="@color/gray_budget_text"
-            android:textSize="15sp"
-            app:cornerRadius="10dp"
-            />
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="10dp">
+            <!-- Fondo de ImageView -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/budget_edit_remove_button" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="Cancel"
+                android:textColor="@color/gray_budget_text"
+                android:textSize="14sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="10dp">
+            <!-- Fondo de ImageView -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/budget_edit_remove_button" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="Restore"
+                android:textColor="@color/gray_budget_text"
+                android:textSize="14sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="10dp">
+            <!-- Fondo de ImageView -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/budget_edit_add_button" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="Accept"
+                android:textColor="@color/gray_budget_text"
+                android:textSize="14sp"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
