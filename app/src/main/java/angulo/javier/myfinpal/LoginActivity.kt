@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
     lateinit var btn_login: Button
-    lateinit var btn_signup: Button
+    lateinit var tv_signup: TextView
     lateinit var tv_recovery: TextView
     lateinit var et_email: EditText
     lateinit var et_password: EditText
@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         } catch (e: NullPointerException) { }
 
         btn_login = findViewById(R.id.btn_login)
-        btn_signup = findViewById(R.id.btn_signup)
+        tv_signup = findViewById(R.id.tv_signup)
         tv_recovery = findViewById(R.id.tv_recovery)
         et_email = findViewById(R.id.et_email_login)
         et_password = findViewById(R.id.et_password_login)
@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btn_signup.setOnClickListener {
+        tv_signup.setOnClickListener {
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
