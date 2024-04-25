@@ -29,10 +29,7 @@ class BudgetFragment : Fragment() {
         _binding = FragmentBudgetBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-        // Configura el OnClickListener para el botón
         binding.btnEditBudget.setOnClickListener {
-            // Navega a otro fragmento (ejemplo: a un fragmento llamado EditBudgetFragment)
             navigateToEditBudget()
         }
 

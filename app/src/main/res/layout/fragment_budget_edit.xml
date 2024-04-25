@@ -128,24 +128,33 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuFoodButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="$ "
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"/>
+                <EditText
                     android:id="@+id/textBudgetMenuFoodNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$ --"
+                    android:hint="--"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuFoodButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
-
-            <!-- Repite el patrón para cada sección del menú -->
 
             <!-- Sección de menú de compras -->
             <LinearLayout
@@ -181,24 +190,33 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuShoppingButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="$ "
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"/>
+                <EditText
                     android:id="@+id/textBudgetMenuShoppingNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$ --"
+                    android:hint="--"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuShoppingButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
-
-            <!-- Continúa agregando más secciones de menú -->
 
             <!-- Sección de menú de salud -->
             <LinearLayout
@@ -234,24 +252,33 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuHealthButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="$ "
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"/>
+                <EditText
                     android:id="@+id/textBudgetMenuHealthNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$ --"
+                    android:hint="--"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuHealthButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
-
-            <!-- Continúa agregando más secciones de menú de la misma manera -->
 
             <!-- Sección de actividades -->
             <LinearLayout
@@ -287,24 +314,35 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuActivitiesButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="$ "
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"/>
+                <EditText
                     android:id="@+id/textBudgetMenuActivitiesNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$ --"
+                    android:hint="--"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuActivitiesButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
 
-            <!-- Continúa agregando más secciones de menú -->
+            <!-- Sección de membresias -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -339,6 +377,7 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuMembershipButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
@@ -346,14 +385,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$ --"
+                    android:hint="$ "
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"/>
+                <EditText
+                    android:id="@+id/textBudgetMenuMemberNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="--"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuMembershipButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
+
+            <!-- Sección de Restaurantes -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -387,6 +440,7 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuRestaurantsButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
@@ -394,16 +448,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="$ --"
+                    android:hint="$ "
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="14sp"/>
+                <EditText
+                    android:id="@+id/textBudgetMenuRestaurantsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="--"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
+                    android:id="@+id/budgetMenuRestaurantsButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <!-- Sección de botones -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -438,6 +505,7 @@
             android:paddingHorizontal="10dp">
             <!-- Fondo de ImageView -->
             <ImageView
+                android:id="@+id/budgetMenuButtonRestore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
