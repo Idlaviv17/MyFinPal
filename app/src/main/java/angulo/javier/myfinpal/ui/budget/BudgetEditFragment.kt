@@ -87,7 +87,6 @@ class BudgetEditFragment : Fragment() {
         budgetMenuRestaurantButtonUp.setOnClickListener { increaseBudgetValue(textBudgetMenuRestaurantNumber) }
 
         budgetMenuButtonRestore.setOnClickListener {
-            // Establecer el texto de cada EditText en una cadena vacía
             textBudgetMenuFoodNumber.setText("")
             textBudgetMenuShoppingNumber.setText("")
             textBudgetMenuHealthNumber.setText("")
@@ -120,7 +119,6 @@ class BudgetEditFragment : Fragment() {
     }
 
     private fun decreaseBudgetValue(editText: EditText) {
-        // Get the current text from the TextView
         val text = editText.text.toString()
 
         if (text.toString().isNullOrEmpty()) {
@@ -130,19 +128,16 @@ class BudgetEditFragment : Fragment() {
 
         val currentValue = text.toDouble()
 
-        // Decrease the value (for example, by 10)
         val newValue: Double = currentValue - 10
 
         if (newValue <= 0){
             editText.setText("00")
             return
         }
-        // Update the TextView with the new value
         editText.setText(newValue.toString())
     }
 
     private fun increaseBudgetValue(editText: EditText) {
-        // Get the current text from the TextView
         val text = editText.text.toString()
 
         if (text.toString().isNullOrEmpty()) {
@@ -151,20 +146,16 @@ class BudgetEditFragment : Fragment() {
         }
 
         val currentValue = text.toDouble()
-        // Increase the value (for example, by 10)
         val newValue = currentValue + 10
 
-        // Update the TextView with the new value
         editText.setText(newValue.toString())
     }
 
     private class RemoveLeadingZerosWatcher : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            // No se necesita hacer nada antes de que el texto cambie.
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            // No se necesita hacer nada mientras el texto cambia. ...
         }
 
         override fun afterTextChanged(s: Editable?) {
