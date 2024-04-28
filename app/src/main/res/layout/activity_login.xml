@@ -45,7 +45,7 @@
                 android:drawablePadding="8dp"
                 android:hint="Email"
                 android:textSize="18sp"
-                android:padding="8dp"
+                android:paddingLeft="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="10dp"/>
