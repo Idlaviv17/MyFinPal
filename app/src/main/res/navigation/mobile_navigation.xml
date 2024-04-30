@@ -45,6 +45,7 @@
     <fragment
         android:id="@+id/navigation_budget_edit"
         android:name="angulo.javier.myfinpal.ui.budget.BudgetEditFragment"
-        tools:layout="@layout/fragment_budget_edit" />
+        tools:layout="@layout/fragment_budget_edit" >
+    </fragment>
 
 </navigation>
