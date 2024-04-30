@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import angulo.javier.myfinpal.databinding.FragmentHomeBinding
 import angulo.javier.myfinpal.entity.Payment
 import angulo.javier.myfinpal.ui.adapter.PaymentAdapter
-import angulo.javier.myfinpal.ui.history.HistoryFragmentDirections
 import angulo.javier.myfinpal.util.Categories
 import angulo.javier.myfinpal.util.PaymentMethods
 import java.time.LocalDate

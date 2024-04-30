@@ -5,9 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import angulo.javier.myfinpal.R
+import androidx.navigation.fragment.findNavController
 import angulo.javier.myfinpal.databinding.FragmentHistoryDetailBinding
-import angulo.javier.myfinpal.util.Categories
 import angulo.javier.myfinpal.util.IconHandler
 
 class HistoryDetailFragment : Fragment() {
@@ -21,6 +20,11 @@ class HistoryDetailFragment : Fragment() {
     ): View {
         _binding = FragmentHistoryDetailBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.returnBtn.setOnClickListener {
+            val action = HistoryDetailFragmentDirections.actionNavigationHistoryDetailToNavigationHistory()
+            findNavController().navigate(action)
+        }
 
         val args = HistoryDetailFragmentArgs.fromBundle(requireArguments())
         val payment = args.payment
