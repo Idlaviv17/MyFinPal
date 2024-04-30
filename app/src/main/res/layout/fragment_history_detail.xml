@@ -5,27 +5,39 @@
     android:orientation="vertical"
     tools:context=".ui.history.HistoryDetailFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/payment_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/example_icon_netflix"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp" />
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_bg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/budget_menu_membership_background" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/budget_menu_membership" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/payment_title"
+            android:id="@+id/payment_title_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="center_vertical"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/comfortaa"
             android:text="Payment title Example"
-            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="36sp" />
     </LinearLayout>

@@ -37,6 +37,7 @@
         <item>Shopping</item>
         <item>Health</item>
         <item>Activities</item>
+        <item>Memberships</item>
         <item>Restaurants</item>
     </string-array>
 </resources>
