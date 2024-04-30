@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import angulo.javier.myfinpal.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,6 +28,14 @@ class BudgetEditFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var textBudgetMenuFoodNumber: EditText
+    private lateinit var textBudgetMenuShoppingNumber: EditText
+    private lateinit var textBudgetMenuHealthNumber: EditText
+    private lateinit var textBudgetMenuActivitiesNumber: EditText
+    private lateinit var textBudgetMenuMembershipNumber: EditText
+    private lateinit var textBudgetMenuRestaurantNumber: EditText
+    private lateinit var textBudgetToSpend: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,22 +52,28 @@ class BudgetEditFragment : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_budget_edit, container, false)
 
-        val textBudgetMenuFoodNumber = rootView.findViewById<EditText>(R.id.textBudgetMenuFoodNumber)
-        val textBudgetMenuShoppingNumber = rootView.findViewById<EditText>(R.id.textBudgetMenuShoppingNumber)
-        val textBudgetMenuHealthNumber = rootView.findViewById<EditText>(R.id.textBudgetMenuHealthNumber)
-        val textBudgetMenuActivitiesNumber = rootView.findViewById<EditText>(R.id.textBudgetMenuActivitiesNumber)
-        val textBudgetMenuMembershipNumber = rootView.findViewById<EditText>(R.id.textBudgetMenuMemberNumber)
-        val textBudgetMenuRestaurantNumber = rootView.findViewById<EditText>(R.id.textBudgetMenuRestaurantsNumber)
+        // Initialize EditText and TextView variables
+        textBudgetMenuFoodNumber = rootView.findViewById(R.id.textBudgetMenuFoodNumber)
+        textBudgetMenuShoppingNumber = rootView.findViewById(R.id.textBudgetMenuShoppingNumber)
+        textBudgetMenuHealthNumber = rootView.findViewById(R.id.textBudgetMenuHealthNumber)
+        textBudgetMenuActivitiesNumber = rootView.findViewById(R.id.textBudgetMenuActivitiesNumber)
+        textBudgetMenuMembershipNumber = rootView.findViewById(R.id.textBudgetMenuMemberNumber)
+        textBudgetMenuRestaurantNumber = rootView.findViewById(R.id.textBudgetMenuRestaurantsNumber)
+        textBudgetToSpend = rootView.findViewById(R.id.textBudgetToSpend)
 
         val budgetMenuButtonRestore = rootView.findViewById<ImageView>(R.id.budgetMenuButtonRestore)
+        val budgetMenuButtonAccept = rootView.findViewById<ImageView>(R.id.budgetMenuButtonAccept)
+        val budgetMenuButtonCancel = rootView.findViewById<ImageView>(R.id.budgetMenuButtonCancel)
 
-        textBudgetMenuFoodNumber.addTextChangedListener(RemoveLeadingZerosWatcher())
-        textBudgetMenuShoppingNumber.addTextChangedListener(RemoveLeadingZerosWatcher())
-        textBudgetMenuHealthNumber.addTextChangedListener(RemoveLeadingZerosWatcher())
-        textBudgetMenuActivitiesNumber.addTextChangedListener(RemoveLeadingZerosWatcher())
-        textBudgetMenuMembershipNumber.addTextChangedListener(RemoveLeadingZerosWatcher())
-        textBudgetMenuRestaurantNumber.addTextChangedListener(RemoveLeadingZerosWatcher())
+        // Set up TextWatcher
+        textBudgetMenuFoodNumber.addTextChangedListener(TextWatcherListener())
+        textBudgetMenuShoppingNumber.addTextChangedListener(TextWatcherListener())
+        textBudgetMenuHealthNumber.addTextChangedListener(TextWatcherListener())
+        textBudgetMenuActivitiesNumber.addTextChangedListener(TextWatcherListener())
+        textBudgetMenuMembershipNumber.addTextChangedListener(TextWatcherListener())
+        textBudgetMenuRestaurantNumber.addTextChangedListener(TextWatcherListener())
 
+        // Set up button click listeners
         val budgetMenuFoodButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuFoodButtonDown)
         val budgetMenuFoodButtonUp = rootView.findViewById<ImageView>(R.id.budgetMenuFoodButtonUp)
         val budgetMenuShoppingButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuShoppingButtonDown)
@@ -93,6 +108,16 @@ class BudgetEditFragment : Fragment() {
             textBudgetMenuActivitiesNumber.setText("")
             textBudgetMenuMembershipNumber.setText("")
             textBudgetMenuRestaurantNumber.setText("")
+        }
+
+        budgetMenuButtonAccept.setOnClickListener{
+            val navController = findNavController()
+            navController.navigate(R.id.navigation_budget)
+        }
+
+        budgetMenuButtonCancel.setOnClickListener{
+            val navController = findNavController()
+            navController.navigate(R.id.navigation_budget)
         }
 
         return rootView
@@ -134,7 +159,9 @@ class BudgetEditFragment : Fragment() {
             editText.setText("00")
             return
         }
+
         editText.setText(newValue.toString())
+        updateBudgetToSpend()
     }
 
     private fun increaseBudgetValue(editText: EditText) {
@@ -149,9 +176,22 @@ class BudgetEditFragment : Fragment() {
         val newValue = currentValue + 10
 
         editText.setText(newValue.toString())
+
+        updateBudgetToSpend()
     }
 
-    private class RemoveLeadingZerosWatcher : TextWatcher {
+    private fun updateBudgetToSpend() {
+        val totalBudget = (textBudgetMenuFoodNumber.text.toString().toDoubleOrNull() ?: 0.0) +
+                (textBudgetMenuShoppingNumber.text.toString().toDoubleOrNull() ?: 0.0) +
+                (textBudgetMenuHealthNumber.text.toString().toDoubleOrNull() ?: 0.0) +
+                (textBudgetMenuActivitiesNumber.text.toString().toDoubleOrNull() ?: 0.0) +
+                (textBudgetMenuMembershipNumber.text.toString().toDoubleOrNull() ?: 0.0) +
+                (textBudgetMenuRestaurantNumber.text.toString().toDoubleOrNull() ?: 0.0)
+
+        textBudgetToSpend.text = totalBudget.toString()
+    }
+
+    private inner  class TextWatcherListener : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
 
@@ -167,6 +207,7 @@ class BudgetEditFragment : Fragment() {
                 if (newText.contains(".") && newText.lastIndexOf(".") != newText.indexOf(".")) {
                     s?.delete(s.length - 1, s.length)
                 }
+                updateBudgetToSpend()
             }
         }
     }
