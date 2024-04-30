@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_history"
-            app:destination="@id/navigation_history" />
+            app:destination="@id/navigation_history"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_history_detail"
             app:destination="@id/navigation_history_detail" />
@@ -54,7 +56,8 @@
             app:argType="angulo.javier.myfinpal.entity.Payment" />
         <action
             android:id="@+id/action_navigation_history_detail_to_navigation_history"
-            app:destination="@id/navigation_history" />
+            app:destination="@id/navigation_history"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
