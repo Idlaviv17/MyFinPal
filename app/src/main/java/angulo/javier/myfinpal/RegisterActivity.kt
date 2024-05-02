@@ -44,53 +44,25 @@ class RegisterActivity : AppCompatActivity() {
             var email: String = et_email.text.toString()
             var password1: String = et_password1.text.toString()
             var password2: String = et_password2.text.toString()
-            var username = et_username.text.toString()
+            var username: String = et_username.text.toString()
 
-            if (!email.isNullOrEmpty() && !password1.isNullOrEmpty() && !password2.isNullOrEmpty()) {
+            if (!validate(email, password1, password2, username)) return@setOnClickListener
 
-                if (password1.length < 6 || password2.length < 6) {
-                    Toast.makeText(this, "Password needs to be at least 6 characters long.", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener;
-                }
-
-                if (!isEmailValid(email)) {
-                    Toast.makeText(this, "Entered email is not a valid email.", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener;
-                }
-
-                if (username.isNullOrEmpty()) {
-                    Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener;
-                }
-
-                if (password1 == password2) {
-
-                    auth.createUserWithEmailAndPassword(email, password1)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                val user = auth.currentUser
-                                var uid = user?.uid ?: "123"
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("success", "createUserWithEmail:success")
-                                addUser(uid, email, username)
-                                finish()
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("error", "createUserWithEmail:failure", task.exception)
-                                Toast.makeText(
-                                    this,
-                                    "Authentication failed.",
-                                    Toast.LENGTH_SHORT,
-                                ).show()
-                            }
-                        }
-
+            auth.createUserWithEmailAndPassword(email, password1).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    var uid = user?.uid ?: "123"
+                    Log.d("success", "createUserWithEmail:success")
+                    addUser(uid, email, username)
+                    finish()
                 } else {
-                    Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                    Log.w("error", "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        this,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 }
-
-            } else {
-                Toast.makeText(this, "Enter email and password", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -114,6 +86,46 @@ class RegisterActivity : AppCompatActivity() {
                     ).show()
                 }
             }
+    }
+
+    private fun validate(email: String, password1: String, password2: String, username: String): Boolean {
+
+        if (username.isNullOrEmpty()) {
+            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (email.isNullOrEmpty()) {
+            Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (!isEmailValid(email)) {
+            Toast.makeText(this, "Entered email is not a valid email.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (password1.isNullOrEmpty()) {
+            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (password2.isNullOrEmpty()) {
+            Toast.makeText(this, "Password needs to be confirmed", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (password1 != password2) {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (password1.length < 6 || password2.length < 6) {
+            Toast.makeText(this, "Password needs to be at least 6 characters long.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
     }
 
     private fun isEmailValid(email: String): Boolean {
