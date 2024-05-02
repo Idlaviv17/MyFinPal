@@ -3,6 +3,7 @@ package angulo.javier.myfinpal.ui.budget
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import angulo.javier.myfinpal.R
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +32,10 @@ class BudgetEditFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+
+    private lateinit var database: DatabaseReference
+    lateinit var userId: String
 
     private lateinit var textBudgetMenuFoodNumber: EditText
     private lateinit var textBudgetMenuShoppingNumber: EditText
@@ -51,6 +60,9 @@ class BudgetEditFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_budget_edit, container, false)
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_budget_edit, container, false)
+
+        database = Firebase.database.reference
+        userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
         // Initialize EditText and TextView variables
         textBudgetMenuFoodNumber = rootView.findViewById(R.id.textBudgetMenuFoodNumber)
@@ -112,6 +124,7 @@ class BudgetEditFragment : Fragment() {
 
         budgetMenuButtonAccept.setOnClickListener{
             val navController = findNavController()
+            updateBudgetInfo()
             navController.navigate(R.id.navigation_budget)
         }
 
@@ -189,6 +202,38 @@ class BudgetEditFragment : Fragment() {
                 (textBudgetMenuRestaurantNumber.text.toString().toDoubleOrNull() ?: 0.0)
 
         textBudgetToSpend.text = totalBudget.toString()
+    }
+
+    private fun updateBudgetInfo(){
+        val userRef = database.child("users").child(userId)
+
+        val foodNumber = textBudgetMenuFoodNumber.text.toString().toDoubleOrNull() ?: 0.0
+        val shoppingNumber = textBudgetMenuShoppingNumber.text.toString().toDoubleOrNull() ?: 0.0
+        val healthNumber = textBudgetMenuHealthNumber.text.toString().toDoubleOrNull() ?: 0.0
+        val activitiesNumber = textBudgetMenuActivitiesNumber.text.toString().toDoubleOrNull() ?: 0.0
+        val membershipNumber = textBudgetMenuMembershipNumber.text.toString().toDoubleOrNull() ?: 0.0
+        val restaurantNumber = textBudgetMenuRestaurantNumber.text.toString().toDoubleOrNull() ?: 0.0
+        val budgetToSpend = textBudgetToSpend.text.toString().toDoubleOrNull() ?: 0.0
+
+        val newDataMap = HashMap<String, Any>()
+        newDataMap["food"] = foodNumber
+        newDataMap["shopping"] = shoppingNumber
+        newDataMap["health"] = healthNumber
+        newDataMap["activities"] = activitiesNumber
+        newDataMap["membership"] = membershipNumber
+        newDataMap["restaurants"] = restaurantNumber
+        newDataMap["budgetLimit"] = budgetToSpend
+
+        userRef.child("budget").updateChildren(newDataMap)
+            .addOnSuccessListener {
+                // Manejar el éxito de la actualización
+                Log.d("Firebase", "Data captured correctly.")
+            }
+            .addOnFailureListener { exception ->
+                // Manejar el fallo de la actualización
+                Log.e("Firebase", "Error capturing data: ${exception.message}")
+            }
+
     }
 
     private inner  class TextWatcherListener : TextWatcher {
