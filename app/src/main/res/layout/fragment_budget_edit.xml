@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abel"
-                android:text="@string/budget_summary_month"
+                android:text="Budget for the month"
                 android:textColor="@color/gray_budget_text"
                 android:textSize="20sp"/>
 
@@ -50,19 +50,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abel"
-                android:text="@string/budget_summary_current_budget"
+                android:text="Budget to spend:"
                 android:paddingTop="10dp"
                 android:textColor="@color/gray_budget_text"
                 android:textSize="17sp"/>
 
-            <TextView
-                android:id="@+id/textBudget"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/abel"
-                android:text="$3,050 / $5,000"
-                android:textColor="@color/gray_budget_text"
-                android:textSize="17sp" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="$ "
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/textBudgetToSpend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel"
+                    android:hint="--"
+                    android:textColor="@color/gray_budget_text"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <RelativeLayout
@@ -120,7 +133,7 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
@@ -141,7 +154,7 @@
                     android:textSize="14sp"/>
                 <EditText
                     android:id="@+id/textBudgetMenuFoodNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:hint="--"
@@ -182,7 +195,7 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:textAlignment="center"
@@ -203,7 +216,7 @@
                     android:textSize="14sp"/>
                 <EditText
                     android:id="@+id/textBudgetMenuShoppingNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:hint="--"
@@ -244,7 +257,7 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:textAlignment="center"
@@ -265,7 +278,7 @@
                     android:textSize="14sp"/>
                 <EditText
                     android:id="@+id/textBudgetMenuHealthNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:hint="--"
@@ -306,7 +319,7 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:textAlignment="center"
@@ -327,7 +340,7 @@
                     android:textSize="14sp"/>
                 <EditText
                     android:id="@+id/textBudgetMenuActivitiesNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:hint="--"
@@ -369,7 +382,7 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:textAlignment="center"
@@ -390,7 +403,7 @@
                     android:textSize="14sp"/>
                 <EditText
                     android:id="@+id/textBudgetMenuMemberNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:hint="--"
@@ -432,7 +445,7 @@
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:textAlignment="center"
@@ -453,7 +466,7 @@
                     android:textSize="14sp"/>
                 <EditText
                     android:id="@+id/textBudgetMenuRestaurantsNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:hint="--"
@@ -465,7 +478,7 @@
                     android:id="@+id/budgetMenuRestaurantsButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/edit_arrow_down"/>
+                    android:src="@drawable/edit_arrow_up"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -485,6 +498,7 @@
             android:paddingHorizontal="10dp">
             <!-- Fondo de ImageView -->
             <ImageView
+                android:id="@+id/budgetMenuButtonCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -526,6 +540,7 @@
             android:paddingHorizontal="10dp">
             <!-- Fondo de ImageView -->
             <ImageView
+                android:id="@+id/budgetMenuButtonAccept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
