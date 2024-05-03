@@ -11,11 +11,20 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import angulo.javier.myfinpal.Dao.BudgetDAO
 import angulo.javier.myfinpal.R
+import angulo.javier.myfinpal.databinding.FragmentBudgetBinding
+import angulo.javier.myfinpal.databinding.FragmentBudgetEditBinding
+import angulo.javier.myfinpal.domain.Budget
+import angulo.javier.myfinpal.ui.home.HomeFragmentDirections
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,17 +32,15 @@ import com.google.firebase.database.database
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BudgetEditFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BudgetEditFragment : Fragment() {
     // TODO: Rename and change types of parameters
+    private var _binding: FragmentBudgetEditBinding? = null
+    private val binding get() = _binding!!
+
     private var param1: String? = null
     private var param2: String? = null
 
-
+    private val budgetDao = BudgetDAO()
     private lateinit var database: DatabaseReference
     lateinit var userId: String
 
@@ -56,26 +63,25 @@ class BudgetEditFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_budget_edit, container, false)
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_budget_edit, container, false)
+    ): View {
+        _binding = FragmentBudgetEditBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
         database = Firebase.database.reference
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
         // Initialize EditText and TextView variables
-        textBudgetMenuFoodNumber = rootView.findViewById(R.id.textBudgetMenuFoodNumber)
-        textBudgetMenuShoppingNumber = rootView.findViewById(R.id.textBudgetMenuShoppingNumber)
-        textBudgetMenuHealthNumber = rootView.findViewById(R.id.textBudgetMenuHealthNumber)
-        textBudgetMenuActivitiesNumber = rootView.findViewById(R.id.textBudgetMenuActivitiesNumber)
-        textBudgetMenuMembershipNumber = rootView.findViewById(R.id.textBudgetMenuMemberNumber)
-        textBudgetMenuRestaurantNumber = rootView.findViewById(R.id.textBudgetMenuRestaurantsNumber)
-        textBudgetToSpend = rootView.findViewById(R.id.textBudgetToSpend)
+        textBudgetMenuFoodNumber = binding.textBudgetMenuFoodNumber
+        textBudgetMenuShoppingNumber = binding.textBudgetMenuShoppingNumber
+        textBudgetMenuHealthNumber = binding.textBudgetMenuHealthNumber
+        textBudgetMenuActivitiesNumber = binding.textBudgetMenuActivitiesNumber
+        textBudgetMenuMembershipNumber = binding.textBudgetMenuMemberNumber
+        textBudgetMenuRestaurantNumber = binding.textBudgetMenuRestaurantsNumber
+        textBudgetToSpend = binding.textBudgetToSpend
 
-        val budgetMenuButtonRestore = rootView.findViewById<ImageView>(R.id.budgetMenuButtonRestore)
-        val budgetMenuButtonAccept = rootView.findViewById<ImageView>(R.id.budgetMenuButtonAccept)
-        val budgetMenuButtonCancel = rootView.findViewById<ImageView>(R.id.budgetMenuButtonCancel)
+        val budgetMenuButtonRestore = binding.budgetMenuButtonRestore
+        val budgetMenuButtonAccept = binding.budgetMenuButtonAccept
+        val budgetMenuButtonCancel = binding.budgetMenuButtonCancel
 
         // Set up TextWatcher
         textBudgetMenuFoodNumber.addTextChangedListener(TextWatcherListener())
@@ -86,18 +92,18 @@ class BudgetEditFragment : Fragment() {
         textBudgetMenuRestaurantNumber.addTextChangedListener(TextWatcherListener())
 
         // Set up button click listeners
-        val budgetMenuFoodButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuFoodButtonDown)
-        val budgetMenuFoodButtonUp = rootView.findViewById<ImageView>(R.id.budgetMenuFoodButtonUp)
-        val budgetMenuShoppingButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuShoppingButtonDown)
-        val budgetMenuShoppingButtonUp = rootView.findViewById<ImageView>(R.id.budgetMenuShoppingButtonUp)
-        val budgetMenuHealthButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuHealthButtonDown)
-        val budgetMenuHealthButtonUp = rootView.findViewById<ImageView>(R.id.budgetMenuHealthButtonUp)
-        val budgetMenuActivitiesButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuActivitiesButtonDown)
-        val budgetMenuActivitiesButtonUp = rootView.findViewById<ImageView>(R.id.budgetMenuActivitiesButtonUp)
-        val budgetMenuMembershipButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuMembershipButtonDown)
-        val budgetMenuMembershipButtonUp = rootView.findViewById<ImageView>(R.id.budgetMenuMembershipButtonUp)
-        val budgetMenuRestaurantButtonDown = rootView.findViewById<ImageView>(R.id.budgetMenuRestaurantsButtonDown)
-        val budgetMenuRestaurantButtonUp = rootView.findViewById<ImageView>(R.id.budgetMenuRestaurantsButtonUp)
+        val budgetMenuFoodButtonDown = binding.budgetMenuFoodButtonDown
+        val budgetMenuFoodButtonUp = binding.budgetMenuFoodButtonUp
+        val budgetMenuShoppingButtonDown = binding.budgetMenuShoppingButtonDown
+        val budgetMenuShoppingButtonUp = binding.budgetMenuShoppingButtonUp
+        val budgetMenuHealthButtonDown = binding.budgetMenuHealthButtonDown
+        val budgetMenuHealthButtonUp = binding.budgetMenuHealthButtonUp
+        val budgetMenuActivitiesButtonDown = binding.budgetMenuActivitiesButtonDown
+        val budgetMenuActivitiesButtonUp = binding.budgetMenuActivitiesButtonUp
+        val budgetMenuMembershipButtonDown = binding.budgetMenuMembershipButtonDown
+        val budgetMenuMembershipButtonUp = binding.budgetMenuMembershipButtonUp
+        val budgetMenuRestaurantButtonDown = binding.budgetMenuRestaurantsButtonDown
+        val budgetMenuRestaurantButtonUp = binding.budgetMenuRestaurantsButtonUp
 
 
         budgetMenuFoodButtonDown.setOnClickListener { decreaseBudgetValue(textBudgetMenuFoodNumber) }
@@ -123,37 +129,17 @@ class BudgetEditFragment : Fragment() {
         }
 
         budgetMenuButtonAccept.setOnClickListener{
-            val navController = findNavController()
             updateBudgetInfo()
-            navController.navigate(R.id.navigation_budget)
+            val action = BudgetEditFragmentDirections.actionNavigationBudgetEditToNavigationBudget()
+            findNavController().navigate(action)
         }
 
         budgetMenuButtonCancel.setOnClickListener{
-            val navController = findNavController()
-            navController.navigate(R.id.navigation_budget)
+            val action = BudgetEditFragmentDirections.actionNavigationBudgetEditToNavigationBudget()
+            findNavController().navigate(action)
         }
 
-        return rootView
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BudgetEdit.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BudgetEditFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        return root
     }
 
     private fun decreaseBudgetValue(editText: EditText) {
@@ -174,7 +160,7 @@ class BudgetEditFragment : Fragment() {
         }
 
         editText.setText(newValue.toString())
-        updateBudgetToSpend()
+        cancelBudget()
     }
 
     private fun increaseBudgetValue(editText: EditText) {
@@ -190,10 +176,10 @@ class BudgetEditFragment : Fragment() {
 
         editText.setText(newValue.toString())
 
-        updateBudgetToSpend()
+        cancelBudget()
     }
 
-    private fun updateBudgetToSpend() {
+    private fun cancelBudget() {
         val totalBudget = (textBudgetMenuFoodNumber.text.toString().toDoubleOrNull() ?: 0.0) +
                 (textBudgetMenuShoppingNumber.text.toString().toDoubleOrNull() ?: 0.0) +
                 (textBudgetMenuHealthNumber.text.toString().toDoubleOrNull() ?: 0.0) +
@@ -205,35 +191,36 @@ class BudgetEditFragment : Fragment() {
     }
 
     private fun updateBudgetInfo(){
-        val userRef = database.child("users").child(userId)
-
         val foodNumber = textBudgetMenuFoodNumber.text.toString().toDoubleOrNull() ?: 0.0
         val shoppingNumber = textBudgetMenuShoppingNumber.text.toString().toDoubleOrNull() ?: 0.0
         val healthNumber = textBudgetMenuHealthNumber.text.toString().toDoubleOrNull() ?: 0.0
         val activitiesNumber = textBudgetMenuActivitiesNumber.text.toString().toDoubleOrNull() ?: 0.0
         val membershipNumber = textBudgetMenuMembershipNumber.text.toString().toDoubleOrNull() ?: 0.0
         val restaurantNumber = textBudgetMenuRestaurantNumber.text.toString().toDoubleOrNull() ?: 0.0
-        val budgetToSpend = textBudgetToSpend.text.toString().toDoubleOrNull() ?: 0.0
+        val budgetLimit = textBudgetToSpend.text.toString().toDoubleOrNull() ?: 0.0
 
-        val newDataMap = HashMap<String, Any>()
-        newDataMap["food"] = foodNumber
-        newDataMap["shopping"] = shoppingNumber
-        newDataMap["health"] = healthNumber
-        newDataMap["activities"] = activitiesNumber
-        newDataMap["membership"] = membershipNumber
-        newDataMap["restaurants"] = restaurantNumber
-        newDataMap["budgetLimit"] = budgetToSpend
+        val args = BudgetEditFragmentArgs.fromBundle(requireArguments())
+        val budgetToSpend = args.budgetToSpend
 
-        userRef.child("budget").updateChildren(newDataMap)
+        //budgetDao.readUserBudget(userId) { dataSnapshot ->
+        //    val budget = dataSnapshot.getValue(Budget::class.java)
+        //    val spendBudget = budget?.spendBudget.toString()
+        //}
+
+        val updatedBudget = Budget(
+            budgetLimit, budgetToSpend.toDouble(),
+            foodNumber, shoppingNumber,
+            healthNumber, activitiesNumber,
+            membershipNumber, restaurantNumber
+        )
+
+        budgetDao.updateUserBudget(userId, updatedBudget)
             .addOnSuccessListener {
-                // Manejar el éxito de la actualización
                 Log.d("Firebase", "Data captured correctly.")
             }
             .addOnFailureListener { exception ->
-                // Manejar el fallo de la actualización
                 Log.e("Firebase", "Error capturing data: ${exception.message}")
             }
-
     }
 
     private inner  class TextWatcherListener : TextWatcher {
@@ -252,7 +239,7 @@ class BudgetEditFragment : Fragment() {
                 if (newText.contains(".") && newText.lastIndexOf(".") != newText.indexOf(".")) {
                     s?.delete(s.length - 1, s.length)
                 }
-                updateBudgetToSpend()
+                cancelBudget()
             }
         }
     }

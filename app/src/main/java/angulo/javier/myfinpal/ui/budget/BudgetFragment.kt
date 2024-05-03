@@ -10,8 +10,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import angulo.javier.myfinpal.Dao.BudgetDAO
 import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentBudgetBinding
+import angulo.javier.myfinpal.domain.Budget
+import angulo.javier.myfinpal.ui.history.HistoryViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -27,6 +30,7 @@ class BudgetFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val budgetDao = BudgetDAO()
 
     private lateinit var database: DatabaseReference
     lateinit var userId: String
@@ -40,15 +44,13 @@ class BudgetFragment : Fragment() {
     lateinit var restaurantsBudget: TextView
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val budgetViewModel =
-            ViewModelProvider(this).get(BudgetViewModel::class.java)
-
+            ViewModelProvider(this)[BudgetViewModel::class.java]
         _binding = FragmentBudgetBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -68,8 +70,6 @@ class BudgetFragment : Fragment() {
 
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
         showBudget()
-
-
         return root
     }
 
@@ -80,40 +80,27 @@ class BudgetFragment : Fragment() {
 
     private fun navigateToEditBudget() {
         // Navegación utilizando NavController
-        val navController = findNavController()
-        navController.navigate(R.id.action_navigation_budget_to_navigation_budget_edit)
+        var spendBudget = budgetToSpend.text.toString()
+        spendBudget = spendBudget.replace(Regex("[^\\d.]"), "")
+        val action = BudgetFragmentDirections.actionNavigationBudgetToNavigationBudgetEdit(spendBudget)
+        findNavController().navigate(action)
     }
 
     private fun showBudget() {
-        val userRef = database.child("users").child(userId)
-
-        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val budgetL = dataSnapshot.child("budget").child("budgetLimit").value.toString()
-                val budgetTS = dataSnapshot.child("budget").child("budgetToSpend").value.toString()
-                val foodB = dataSnapshot.child("budget").child("food").value.toString()
-                val shoppingB = dataSnapshot.child("budget").child("shopping").value.toString()
-                val healthB = dataSnapshot.child("budget").child("health").value.toString()
-                val activitiesB = dataSnapshot.child("budget").child("activities").value.toString()
-                val membershipsB = dataSnapshot.child("budget").child("memberships").value.toString()
-                val restaurantsB = dataSnapshot.child("budget").child("restaurants").value.toString()
-
-                budgetLimit.text = textToDoubleFormat(budgetL)
-                budgetToSpend.text = textToDoubleFormat(budgetTS)
-                foodBudget.text = textToDoubleFormat(foodB)
-                shoppingBudget.text = textToDoubleFormat(shoppingB)
-                healthBudget.text = textToDoubleFormat(healthB)
-                activitiesBudget.text = textToDoubleFormat(activitiesB)
-                membershipsBudget.text = textToDoubleFormat(membershipsB)
-                restaurantsBudget.text = textToDoubleFormat(restaurantsB)
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.e("FirebaseError", "Error when displaying information: ${databaseError.message}")
-            }
-        })
+        budgetDao.readUserBudget(userId) { dataSnapshot ->
+            val budget = dataSnapshot.getValue(Budget::class.java)
+            Log.d("BudgetFragment", "Budget data: $budget")
+            budgetLimit.text = textToDoubleFormat(budget?.budgetLimit.toString())
+            budgetToSpend.text = textToDoubleFormat(budget?.spendBudget.toString())
+            foodBudget.text = textToDoubleFormat(budget?.food.toString())
+            shoppingBudget.text = textToDoubleFormat(budget?.shopping.toString())
+            healthBudget.text = textToDoubleFormat(budget?.health.toString())
+            activitiesBudget.text = textToDoubleFormat(budget?.activities.toString())
+            membershipsBudget.text = textToDoubleFormat(budget?.memberships.toString())
+            restaurantsBudget.text = textToDoubleFormat(budget?.restaurants.toString())
+        }
     }
+
 
     private fun textToDoubleFormat(text: String): String {
         val valor: Double = text.toDoubleOrNull() ?: return ""
