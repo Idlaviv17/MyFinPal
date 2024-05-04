@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import angulo.javier.myfinpal.util.Categories
-import angulo.javier.myfinpal.entity.Payment
+import angulo.javier.myfinpal.domain.Payment
 import angulo.javier.myfinpal.ui.adapter.PaymentAdapter
 import angulo.javier.myfinpal.util.PaymentMethods
 import angulo.javier.myfinpal.databinding.FragmentHistoryBinding

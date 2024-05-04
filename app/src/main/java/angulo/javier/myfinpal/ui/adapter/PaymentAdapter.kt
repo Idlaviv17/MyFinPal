@@ -8,9 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import angulo.javier.myfinpal.entity.Payment
+import angulo.javier.myfinpal.domain.Payment
 import angulo.javier.myfinpal.R
-import angulo.javier.myfinpal.util.Categories
 import angulo.javier.myfinpal.util.IconHandler
 import java.time.format.DateTimeFormatter
 

@@ -1,4 +1,4 @@
-package angulo.javier.myfinpal.entity
+package angulo.javier.myfinpal.domain
 
 import android.os.Parcelable
 import angulo.javier.myfinpal.util.Categories
