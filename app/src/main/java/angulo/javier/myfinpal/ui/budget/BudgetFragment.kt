@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +43,7 @@ class BudgetFragment : Fragment() {
     lateinit var activitiesBudget: TextView
     lateinit var membershipsBudget: TextView
     lateinit var restaurantsBudget: TextView
+    lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(
@@ -67,6 +69,8 @@ class BudgetFragment : Fragment() {
         activitiesBudget = _binding!!.textBudgetMenuActivitieshNumber
         membershipsBudget = _binding!!.textBudgetMenuMembershipNumber
         restaurantsBudget = _binding!!.textBudgetMenuRestaurantsNumber
+
+        progressBar = _binding!!.progressBar
 
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
         showBudget()
@@ -98,6 +102,17 @@ class BudgetFragment : Fragment() {
             activitiesBudget.text = textToDoubleFormat(budget?.activities.toString())
             membershipsBudget.text = textToDoubleFormat(budget?.memberships.toString())
             restaurantsBudget.text = textToDoubleFormat(budget?.restaurants.toString())
+
+            val budgetLimitValue = budget?.budgetLimit?.toString()?.toDoubleOrNull() ?: 0.0
+            val spendBudgetValue = budget?.spendBudget?.toString()?.toDoubleOrNull() ?: 0.0
+
+            budgetLimit.text = textToDoubleFormat(budgetLimitValue.toString())
+            budgetToSpend.text = textToDoubleFormat(spendBudgetValue.toString())
+
+            val progress = ((spendBudgetValue / budgetLimitValue) * 100)
+            Log.d("BudgetFragment", "progress: $progress")
+            progressBar.max = 100
+            progressBar.progress = progress.toInt()
         }
     }
 
