@@ -139,12 +139,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/abel"
-                android:text="Cost"
+                android:text="Amount"
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/cost_tv"
+                android:id="@+id/amount_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

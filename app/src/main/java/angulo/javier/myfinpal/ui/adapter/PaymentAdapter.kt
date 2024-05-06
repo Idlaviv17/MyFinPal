@@ -40,14 +40,14 @@ class PaymentAdapter(
         private val iconBgImageView: ImageView = itemView.findViewById(R.id.icon_bg)
         private val iconImageView: ImageView = itemView.findViewById(R.id.icon)
         private val titleTextView: TextView = itemView.findViewById(R.id.title_tv)
-        private val costTextView: TextView = itemView.findViewById(R.id.cost_tv)
+        private val amountTextView: TextView = itemView.findViewById(R.id.amount_tv)
         private val dateTextView: TextView = itemView.findViewById(R.id.date_tv)
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(payment: Payment) {
             IconHandler.setIcon(payment.category, iconBgImageView, iconImageView)
             titleTextView.text = payment.title
-            costTextView.text = costTextView.text
+            amountTextView.text = "$" + payment.amount.toString()
             dateTextView.text = payment.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
         }
     }
