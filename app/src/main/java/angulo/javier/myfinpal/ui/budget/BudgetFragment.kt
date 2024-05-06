@@ -122,8 +122,4 @@ class BudgetFragment : Fragment() {
         return "${'$'}${String.format("%.2f", valor)}"
     }
 
-    private fun calculateProgressBar(budgetS:Int, budgetL:Int){
-
-    }
-
 }
