@@ -10,17 +10,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import angulo.javier.myfinpal.util.Categories
+import angulo.javier.myfinpal.Dao.PaymentDAO
+import angulo.javier.myfinpal.databinding.FragmentHistoryBinding
 import angulo.javier.myfinpal.domain.Payment
 import angulo.javier.myfinpal.ui.adapter.PaymentAdapter
-import angulo.javier.myfinpal.util.PaymentMethods
-import angulo.javier.myfinpal.databinding.FragmentHistoryBinding
-import java.time.LocalDate
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
 
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
+    private lateinit var database: DatabaseReference
+    private lateinit var userId: String
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -34,24 +38,21 @@ class HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val payments = binding.payments
-        payments.layoutManager = LinearLayoutManager(requireContext())
+        database = Firebase.database.reference
+        userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
-        val paymentsList = listOf(
-            Payment("Membresía Netflix", "Netflix",
-                PaymentMethods.CREDIT_CARD, Categories.MEMBERSHIPS, 29.90f, LocalDate.of(2024, 4, 2), "Description 1"),
-            Payment("Groceries", "Walmart", PaymentMethods.DEBIT_CARD, Categories.FOOD, 50.0f, LocalDate.of(2023, 3, 20), "Description 2"),
-            Payment("Shopping", "Liverpool", PaymentMethods.CASH, Categories.SHOPPING, 100.0f, LocalDate.of(2023, 4, 10), "Description 3")
-        )
+        val paymentsRv = binding.paymentsRv
+        paymentsRv.layoutManager = LinearLayoutManager(requireContext())
 
-        // Create the PaymentAdapter with a lambda function to handle item clicks
-        val adapter = PaymentAdapter(paymentsList) { payment ->
-            // Handle click event, for example, navigate to payment details fragment
-            val action = HistoryFragmentDirections.actionNavigationHistoryToNavigationHistoryDetail(payment)
-            findNavController().navigate(action)
+        PaymentDAO().getPayments(userId) { retrievedPayments ->
+            val reversedPayments = retrievedPayments.reversed()
+            val adapter = PaymentAdapter(reversedPayments) { payment ->
+                val action = HistoryFragmentDirections.actionNavigationHistoryToNavigationHistoryDetail(payment)
+                findNavController().navigate(action)
             }
 
-        payments.adapter = adapter
+            paymentsRv.adapter = adapter
+        }
 
         return root
     }
