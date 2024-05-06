@@ -60,19 +60,19 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/abel"
-                android:text="Establishment"
+                android:text="Recipient"
                 android:gravity="center_vertical"
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/establishment_tv"
+                android:id="@+id/recipient_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Establishment Example"
+                android:text="Recipient Example"
                 android:fontFamily="@font/abel"
-                android:textAlignment="textEnd"
+                android:gravity="end|center_vertical"
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -241,17 +241,19 @@
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/cancel_btn"
+                android:id="@+id/delete_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/minus_button"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abel"
-                android:text="Cancel\nMembership"
+                android:text="Delete"
                 android:textAlignment="center"
                 android:textColor="@color/body_text"
                 android:textSize="13sp" />
