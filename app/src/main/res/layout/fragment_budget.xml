@@ -83,22 +83,18 @@
             </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-            <ImageView
-                android:id="@+id/budgetSummaryBarBackground"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/budget_summary_bar_background"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/budget_summary_bar"
-                android:layout_alignRight="@+id/budgetSummaryBarBackground"/>
-        </RelativeLayout>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                style="@style/CircularProgressBar"
+                android:progress="50"/>
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Revenues and expenditures -->
