@@ -1,18 +1,17 @@
 package angulo.javier.myfinpal.domain
 
 import android.os.Parcelable
-import angulo.javier.myfinpal.util.Categories
-import angulo.javier.myfinpal.util.PaymentMethods
+import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
 
 @Parcelize
 data class Payment(
-    var title: String,
-    var establishment: String,
-    var method: PaymentMethods,
-    var category: Categories,
-    var cost: Float,
-    var date: LocalDate,
-    var description: String
+    var title: String = "",
+    var method: String = "",
+    var category: String = "",
+    var amount: Float = 0f,
+    var date: String = "",
+    var description: String = "",
+    @Exclude
+    var uid: String = ""
 ) : Parcelable

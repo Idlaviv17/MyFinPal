@@ -1,3 +1,8 @@
 package angulo.javier.myfinpal.domain
 
-data class User(var email: String, var username: String ,var budget: Budget = Budget())
+data class User(
+    var email: String,
+    var username: String,
+    var budget: Budget = Budget(),
+    var payments: List<Payment> = listOf()
+)
