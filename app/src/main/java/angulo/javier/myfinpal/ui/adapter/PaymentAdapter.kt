@@ -47,7 +47,10 @@ class PaymentAdapter(
         fun bind(payment: Payment) {
             IconHandler.setIcon(payment.category, iconBgImageView, iconImageView)
             titleTextView.text = payment.title
-            amountTextView.text = "$" + payment.amount.toString()
+            val formattedAmount = if (payment.amount % 1 == 0.0f) {
+                "$" + payment.amount.toInt().toString()
+            } else { "$" + payment.amount.toString() }
+            amountTextView.text = formattedAmount
             dateTextView.text = payment.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
         }
     }

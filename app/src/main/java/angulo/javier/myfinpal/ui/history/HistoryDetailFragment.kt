@@ -37,30 +37,38 @@ class HistoryDetailFragment : Fragment() {
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
         binding.returnBtn.setOnClickListener {
-            val action = HistoryDetailFragmentDirections.actionNavigationHistoryDetailToNavigationHistory()
-            findNavController().navigate(action)
+            findNavController().popBackStack()
         }
 
         binding.deleteBtn.setOnClickListener {
             PaymentDAO().deletePayment(userId, payment.uid, ) { databaseError, _ ->
                 if (databaseError == null) {
                     Toast.makeText(requireContext(), "Payment deleted successfully", Toast.LENGTH_SHORT).show()
-                    val action = HistoryDetailFragmentDirections.actionNavigationHistoryDetailToNavigationHistory()
-                    findNavController().navigate(action)
+                    findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), "Failed to delete payment. Please try again.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        val formattedAmount = "$${payment.amount}"
+        binding.updateBtn.setOnClickListener {
+            val action = HistoryDetailFragmentDirections.actionNavigationHistoryDetailToNavigationUpdateRecord(payment)
+            findNavController().navigate(action)
+        }
+
+        val formattedAmount = if (payment.amount % 1 == 0.0f) {
+            "$" + payment.amount.toInt().toString()
+        } else {
+            "$" + payment.amount.toString()
+        }
 
         IconHandler.setIcon(payment.category, binding.iconBg, binding.icon)
         binding.paymentTitleTv.text = payment.title
+        binding.recipientTv.text = payment.title
         binding.paymentMethodTv.text = payment.method
         binding.categoryTv.text = payment.category
         binding.amountTv.text = formattedAmount
-        binding.dateTv.text = payment.date.toString()
+        binding.dateTv.text = payment.date
         binding.descriptionTv.text = payment.description
 
         return root
