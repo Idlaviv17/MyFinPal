@@ -8,9 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import angulo.javier.myfinpal.entity.Payment
+import angulo.javier.myfinpal.domain.Payment
 import angulo.javier.myfinpal.R
-import angulo.javier.myfinpal.util.Categories
 import angulo.javier.myfinpal.util.IconHandler
 import java.time.format.DateTimeFormatter
 
@@ -41,14 +40,17 @@ class PaymentAdapter(
         private val iconBgImageView: ImageView = itemView.findViewById(R.id.icon_bg)
         private val iconImageView: ImageView = itemView.findViewById(R.id.icon)
         private val titleTextView: TextView = itemView.findViewById(R.id.title_tv)
-        private val costTextView: TextView = itemView.findViewById(R.id.cost_tv)
+        private val amountTextView: TextView = itemView.findViewById(R.id.amount_tv)
         private val dateTextView: TextView = itemView.findViewById(R.id.date_tv)
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(payment: Payment) {
             IconHandler.setIcon(payment.category, iconBgImageView, iconImageView)
             titleTextView.text = payment.title
-            costTextView.text = costTextView.text
+            val formattedAmount = if (payment.amount % 1 == 0.0f) {
+                "$" + payment.amount.toInt().toString()
+            } else { "$" + payment.amount.toString() }
+            amountTextView.text = formattedAmount
             dateTextView.text = payment.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
         }
     }

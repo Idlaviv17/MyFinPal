@@ -13,11 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import angulo.javier.myfinpal.Dao.PaymentDAO
 import angulo.javier.myfinpal.databinding.FragmentHomeBinding
-import angulo.javier.myfinpal.entity.Payment
 import angulo.javier.myfinpal.ui.adapter.PaymentAdapter
-import angulo.javier.myfinpal.util.Categories
-import angulo.javier.myfinpal.util.PaymentMethods
+import angulo.javier.myfinpal.ui.history.HistoryFragmentDirections
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
@@ -25,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import java.time.LocalDate
 
 class HomeFragment : Fragment() {
 
@@ -77,22 +75,22 @@ class HomeFragment : Fragment() {
         rvList.setHasFixedSize(true)
         rvList.adapter = adapter
 
-        val payments = binding.payments
-        payments.layoutManager = LinearLayoutManager(requireContext())
+        val paymentsRv = binding.paymentsRv
+        paymentsRv.layoutManager = LinearLayoutManager(requireContext())
 
-        val paymentsList = listOf(
-            Payment("Membresía Netflix", "Netflix",
-                PaymentMethods.CREDIT_CARD, Categories.MEMBERSHIPS, 29.90f, LocalDate.of(2024, 4, 2), "Description 1"),
-            Payment("Groceries", "Walmart", PaymentMethods.DEBIT_CARD, Categories.FOOD, 50.0f, LocalDate.of(2023, 3, 20), "Description 2"),
-            Payment("Shopping", "Liverpool", PaymentMethods.CASH, Categories.SHOPPING, 100.0f, LocalDate.of(2023, 4, 10), "Description 3")
-        )
+        PaymentDAO().getPayments(userId) { retrievedPayments ->
+            val recentPayments = retrievedPayments.takeLast(5)
+            val reversedPayments = recentPayments.reversed()
+            val paymentAdapter = PaymentAdapter(reversedPayments) { payment ->
+                val navigateToHistoryAction = HomeFragmentDirections.actionNavigationHomeToNavigationHistory()
+                findNavController().navigate(navigateToHistoryAction)
 
-        val paymentsAdapter = PaymentAdapter(paymentsList) { payment ->
-//            val action = HomeFragmentDirections.actionNavigationHomeToNavigationHistoryDetail(payment)
-//            findNavController().navigate(action)
+                val navigateToHistoryDetailAction = HistoryFragmentDirections.actionNavigationHistoryToNavigationHistoryDetail(payment)
+                findNavController().navigate(navigateToHistoryDetailAction)
+            }
+
+            paymentsRv.adapter = paymentAdapter
         }
-
-        payments.adapter = paymentsAdapter
 
         return root
     }
