@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_budget">Budget</string>
     <string name="title_new_record">New Record</string>
+    <string name="title_update_record">Update Record</string>
     <string name="title_history">History</string>
     <string name="title_configuration">Config</string>
     <string name="budget_menu_food">Food</string>

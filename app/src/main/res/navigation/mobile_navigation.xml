@@ -63,10 +63,8 @@
             android:name="payment"
             app:argType="angulo.javier.myfinpal.domain.Payment" />
         <action
-            android:id="@+id/action_navigation_history_detail_to_navigation_history"
-            app:destination="@id/navigation_history"
-            app:popUpTo="@id/navigation_history_detail"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_navigation_history_detail_to_navigation_update_record"
+            app:destination="@id/navigation_update_record" />
     </fragment>
 
     <fragment
@@ -79,6 +77,17 @@
         <action
             android:id="@+id/action_navigation_budget_edit_to_navigation_budget"
             app:destination="@id/navigation_budget" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_update_record"
+        android:name="angulo.javier.myfinpal.ui.new_record.UpdateRecordFragment"
+        android:label="@string/title_update_record"
+        tools:layout="@layout/fragment_update_record" >
+
+        <argument
+            android:name="payment"
+            app:argType="angulo.javier.myfinpal.domain.Payment" />
     </fragment>
 
 </navigation>
