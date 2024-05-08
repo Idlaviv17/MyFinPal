@@ -65,8 +65,8 @@
         android:name="angulo.javier.myfinpal.ui.budget.BudgetEditFragment"
         tools:layout="@layout/fragment_budget_edit" >
         <argument
-            android:name="budgetToSpend"
-            app:argType="string" />
+            android:name="budget"
+            app:argType="angulo.javier.myfinpal.domain.Budget" />
         <action
             android:id="@+id/action_navigation_budget_edit_to_navigation_budget"
             app:destination="@id/navigation_budget" />
