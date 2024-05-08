@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:fontFamily="@font/comfortaa"
-            android:text="@string/title_new_record"
+            android:text="@string/title_update_record"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textColor="@color/black"
@@ -221,7 +221,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/accept_btn"
+                    android:id="@+id/update_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -233,7 +233,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
-                    android:text="Accept"
+                    android:text="Update"
                     android:textAlignment="center"
                     android:textColor="@color/body_text"
                     android:textSize="13sp" />

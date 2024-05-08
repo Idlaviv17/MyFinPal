@@ -5,27 +5,39 @@
     android:orientation="vertical"
     tools:context=".ui.history.HistoryDetailFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/payment_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/example_icon_netflix"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp" />
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_bg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/budget_menu_membership_background" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/budget_menu_membership" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/payment_title"
+            android:id="@+id/payment_title_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="center_vertical"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/comfortaa"
             android:text="Payment title Example"
-            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="36sp" />
     </LinearLayout>
@@ -48,19 +60,19 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/abel"
-                android:text="Establishment"
+                android:text="Recipient"
                 android:gravity="center_vertical"
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/establishment_tv"
+                android:id="@+id/recipient_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Establishment Example"
+                android:text="Recipient Example"
                 android:fontFamily="@font/abel"
-                android:textAlignment="textEnd"
+                android:gravity="end|center_vertical"
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -119,19 +131,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/abel"
-                android:text="Cost"
+                android:text="Amount"
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/cost_tv"
+                android:id="@+id/amount_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -141,12 +154,59 @@
                 android:textColor="@color/body_text"
                 android:textSize="20sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/abel"
+                android:text="Date"
+                android:textColor="@color/body_text"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/date_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="01.01.2024"
+                android:fontFamily="@font/abel"
+                android:textAlignment="textEnd"
+                android:textColor="@color/body_text"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/abel"
+            android:text="Description"
+            android:textColor="@color/body_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/description_tv"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_border"
+            android:textSize="18sp"
+            android:fontFamily="@font/abel"
+            android:gravity="top"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:textColor="@color/body_text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="45dp"
         android:gravity="center_horizontal">
 
         <LinearLayout
@@ -156,17 +216,69 @@
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/cancel_btn"
+                android:id="@+id/return_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/minus_button"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abel"
-                android:text="Cancel\nMembership"
+                android:text="Return"
+                android:textAlignment="center"
+                android:textColor="@color/body_text"
+                android:textSize="13sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/minus_button"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="Delete"
+                android:textAlignment="center"
+                android:textColor="@color/body_text"
+                android:textSize="13sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/update_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plus_button"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="Update"
                 android:textAlignment="center"
                 android:textColor="@color/body_text"
                 android:textSize="13sp" />

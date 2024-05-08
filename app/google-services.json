@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "907939425993",
+    "project_id": "myfinpal-748e5",
+    "storage_bucket": "myfinpal-748e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907939425993:android:2f50e9dc39793a17616718",
+        "android_client_info": {
+          "package_name": "angulo.javier.myfinpal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ8BAHJti6mXVRAbQDtXAaavEDoLBqPhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

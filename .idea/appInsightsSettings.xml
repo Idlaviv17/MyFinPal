@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="angulo.javier.myfinpal" />
+                  <option name="mobileSdkAppId" value="1:907939425993:android:2f50e9dc39793a17616718" />
+                  <option name="projectId" value="myfinpal-748e5" />
+                  <option name="projectNumber" value="907939425993" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

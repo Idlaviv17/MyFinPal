@@ -5,56 +5,79 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import angulo.javier.myfinpal.R
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import angulo.javier.myfinpal.Dao.PaymentDAO
+import angulo.javier.myfinpal.databinding.FragmentHistoryDetailBinding
+import angulo.javier.myfinpal.ui.new_record.NewRecordFragmentDirections
+import angulo.javier.myfinpal.util.IconHandler
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HistoryDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HistoryDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentHistoryDetailBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var database: DatabaseReference
+    private lateinit var userId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_detail, container, false)
-    }
+    ): View {
+        _binding = FragmentHistoryDetailBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HistoryDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HistoryDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        val args = HistoryDetailFragmentArgs.fromBundle(requireArguments())
+        val payment = args.payment
+
+        database = Firebase.database.reference
+        userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+        binding.returnBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.deleteBtn.setOnClickListener {
+            PaymentDAO().deletePayment(userId, payment.uid, ) { databaseError, _ ->
+                if (databaseError == null) {
+                    Toast.makeText(requireContext(), "Payment deleted successfully", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to delete payment. Please try again.", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        binding.updateBtn.setOnClickListener {
+            val action = HistoryDetailFragmentDirections.actionNavigationHistoryDetailToNavigationUpdateRecord(payment)
+            findNavController().navigate(action)
+        }
+
+        val formattedAmount = if (payment.amount % 1 == 0.0f) {
+            "$" + payment.amount.toInt().toString()
+        } else {
+            "$" + payment.amount.toString()
+        }
+
+        IconHandler.setIcon(payment.category, binding.iconBg, binding.icon)
+        binding.paymentTitleTv.text = payment.title
+        binding.recipientTv.text = payment.title
+        binding.paymentMethodTv.text = payment.method
+        binding.categoryTv.text = payment.category
+        binding.amountTv.text = formattedAmount
+        binding.dateTv.text = payment.date
+        binding.descriptionTv.text = payment.description
+
+        return root
+    }
+
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

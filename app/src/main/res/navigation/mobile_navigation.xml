@@ -9,19 +9,40 @@
         android:id="@+id/navigation_home"
         android:name="angulo.javier.myfinpal.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_history"
+            app:destination="@id/navigation_history"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_budget"
         android:name="angulo.javier.myfinpal.ui.budget.BudgetFragment"
         android:label="@string/title_budget"
-        tools:layout="@layout/fragment_budget" />
+        tools:layout="@layout/fragment_budget" >
+        <action
+            android:id="@+id/action_navigation_budget_to_navigation_budget_edit"
+            app:destination="@id/navigation_budget_edit"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_new_record"
         android:name="angulo.javier.myfinpal.ui.new_record.NewRecordFragment"
         android:label="@string/title_new_record"
-        tools:layout="@layout/fragment_new_record" />
+        tools:layout="@layout/fragment_new_record" >
+        <action
+            android:id="@+id/action_navigation_new_record_to_navigation_history"
+            app:destination="@id/navigation_history"
+            app:popUpTo="@id/navigation_new_record"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_new_record_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_history"
@@ -36,6 +57,37 @@
     <fragment
         android:id="@+id/navigation_history_detail"
         android:name="angulo.javier.myfinpal.ui.history.HistoryDetailFragment"
-        tools:layout="@layout/fragment_history_detail" />
+        tools:layout="@layout/fragment_history_detail">
+
+        <argument
+            android:name="payment"
+            app:argType="angulo.javier.myfinpal.domain.Payment" />
+        <action
+            android:id="@+id/action_navigation_history_detail_to_navigation_update_record"
+            app:destination="@id/navigation_update_record" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_budget_edit"
+        android:name="angulo.javier.myfinpal.ui.budget.BudgetEditFragment"
+        tools:layout="@layout/fragment_budget_edit" >
+        <argument
+            android:name="budgetToSpend"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_budget_edit_to_navigation_budget"
+            app:destination="@id/navigation_budget" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_update_record"
+        android:name="angulo.javier.myfinpal.ui.new_record.UpdateRecordFragment"
+        android:label="@string/title_update_record"
+        tools:layout="@layout/fragment_update_record" >
+
+        <argument
+            android:name="payment"
+            app:argType="angulo.javier.myfinpal.domain.Payment" />
+    </fragment>
 
 </navigation>

@@ -10,6 +10,7 @@
     <color name="purple_card">#8438FF</color>
     <color name="purple_card_light">#DCC7FF</color>
     <color name="gray_budget_text">#6B6B6B</color>
+    <color name="gray_unfocused">#727272</color>
     <color name="gray_budget_button">#F9FAFB</color>
     <color name="body_text">#60708F</color>
 </resources>
