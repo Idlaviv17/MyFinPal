@@ -247,16 +247,41 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"
                     />
-                <TextView
-                    android:id="@+id/textBudgetMenuFoodNumber"
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:hint="$35.96"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textBudgetMenuFoodNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$10.56"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint=" / "
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:id="@+id/textBudgetMenuFoodLimitNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$35.96"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
 
             <!-- Shopping menu button -->
@@ -284,6 +309,8 @@
                         android:src="@drawable/budget_menu_shopping"
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -293,16 +320,39 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"
                     />
-                <TextView
-                    android:id="@+id/textBudgetMenuShoppingNumber"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:hint="$85.96"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textBudgetMenuShoppingNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$10.56"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint=" / "
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:id="@+id/textBudgetMenuShoppingLimitNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$85.96"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Health menu button -->
@@ -339,16 +389,40 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"
                     />
-                <TextView
-                    android:id="@+id/textBudgetMenuHealthNumber"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:hint="96.66"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textBudgetMenuHealthNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$50.77"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint=" / "
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:id="@+id/textBudgetMenuHealthLimitNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$96.66"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
         </TableRow>
 
@@ -388,15 +462,38 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"
                     />
-                <TextView
-                    android:id="@+id/textBudgetMenuActivitieshNumber"
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:hint="$335.96"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textBudgetMenuActivitieshNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$200.96"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint=" / "
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        />
+                    <TextView
+                        android:id="@+id/textBudgetMenuActivitiesLimitNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$335.96"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
 
             <!-- Membership menu button -->
@@ -433,16 +530,41 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"
                     />
-                <TextView
-                    android:id="@+id/textBudgetMenuMembershipNumber"
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:hint="$85.96"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textBudgetMenuMembershipNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$30.66"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint=" / "
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+
+                    <TextView
+                        android:id="@+id/textBudgetMenuMembershipLimitNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/abel"
+                        android:hint="$85.96"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <!-- Restaurants menu button-->
@@ -479,16 +601,40 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"
                     />
-                <TextView
-                    android:id="@+id/textBudgetMenuRestaurantsNumber"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/abel"
-                    android:hint="$25.96"
-                    android:textColor="@color/gray_budget_text"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textBudgetMenuRestaurantsNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$12.33"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint=" / "
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:id="@+id/textBudgetMenuRestaurantsLimitNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/abel"
+                        android:hint="$25.96"
+                        android:textColor="@color/gray_budget_text"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
         </TableRow>
     </TableLayout>

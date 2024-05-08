@@ -50,6 +50,7 @@ class BudgetEditFragment : Fragment() {
     private lateinit var textBudgetMenuActivitiesNumber: EditText
     private lateinit var textBudgetMenuMembershipNumber: EditText
     private lateinit var textBudgetMenuRestaurantNumber: EditText
+
     private lateinit var textBudgetToSpend: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -199,28 +200,28 @@ class BudgetEditFragment : Fragment() {
         val restaurantNumber = textBudgetMenuRestaurantNumber.text.toString().toDoubleOrNull() ?: 0.0
         val budgetLimit = textBudgetToSpend.text.toString().toDoubleOrNull() ?: 0.0
 
-        val args = BudgetEditFragmentArgs.fromBundle(requireArguments())
-        val budgetToSpend = args.budgetToSpend
+        //val args = BudgetEditFragmentArgs.fromBundle(requireArguments())
+        //val budget = args.budget
+        val budget = arguments?.getSerializable("budget") as? Budget
 
-        //budgetDao.readUserBudget(userId) { dataSnapshot ->
-        //    val budget = dataSnapshot.getValue(Budget::class.java)
-        //    val spendBudget = budget?.spendBudget.toString()
-        //}
-
-        val updatedBudget = Budget(
-            budgetLimit, budgetToSpend.toDouble(),
-            foodNumber, shoppingNumber,
-            healthNumber, activitiesNumber,
-            membershipNumber, restaurantNumber
+        val budgetCopy = budget?.copy(
+            budgetLimit = budgetLimit,
+            foodLimit = foodNumber,
+            shoppingLimit = shoppingNumber,
+            healthLimit = healthNumber,
+            activitiesLimit = activitiesNumber,
+            membershipsLimit = membershipNumber,
+            restaurantsLimit = restaurantNumber
         )
-
-        budgetDao.updateUserBudget(userId, updatedBudget)
-            .addOnSuccessListener {
-                Log.d("Firebase", "Data captured correctly.")
-            }
-            .addOnFailureListener { exception ->
-                Log.e("Firebase", "Error capturing data: ${exception.message}")
-            }
+        if (budgetCopy != null) {
+            budgetDao.updateUserBudget(userId, budgetCopy)
+                .addOnSuccessListener {
+                    Log.d("Firebase", "Data captured correctly.")
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("Firebase", "Error capturing data: ${exception.message}")
+                }
+        }
     }
 
     private inner  class TextWatcherListener : TextWatcher {
