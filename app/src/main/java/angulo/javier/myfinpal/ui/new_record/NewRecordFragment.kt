@@ -3,21 +3,22 @@ package angulo.javier.myfinpal.ui.new_record
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.InputFilter
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import angulo.javier.myfinpal.Dao.BudgetDAO
 import angulo.javier.myfinpal.Dao.PaymentDAO
 import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentNewRecordBinding
+import angulo.javier.myfinpal.domain.Budget
 import angulo.javier.myfinpal.domain.Payment
+import angulo.javier.myfinpal.util.Categories
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -32,6 +33,8 @@ class NewRecordFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var database: DatabaseReference
     private lateinit var userId: String
+
+    private lateinit var payment: Payment
 
     private lateinit var recipient: String
     private lateinit var paymentMethod: String
@@ -64,6 +67,7 @@ class NewRecordFragment : Fragment() {
 
         binding.acceptBtn.setOnClickListener {
             addPayment()
+            updateBudget()
         }
 
         return root
@@ -88,7 +92,7 @@ class NewRecordFragment : Fragment() {
         description = binding.descriptionEt.text.toString()
 
         if (isValid()) {
-            val payment = Payment(
+            payment = Payment(
                 title = recipient,
                 method = paymentMethod,
                 category = category,
@@ -105,6 +109,27 @@ class NewRecordFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Failed to add payment. Please try again.", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+    }
+
+    private fun updateBudget() {
+        val amount = payment.amount
+
+        BudgetDAO().readUserBudget(userId) { dataSnapshot ->
+            dataSnapshot.getValue(Budget::class.java)?.let { budget ->
+                budget.spendBudget += amount
+
+                when (payment.category) {
+                    Categories.ACTIVITIES.stringValue -> budget.activities += amount
+                    Categories.FOOD.stringValue -> budget.food += amount
+                    Categories.HEALTH.stringValue -> budget.health += amount
+                    Categories.MEMBERSHIPS.stringValue -> budget.memberships += amount
+                    Categories.RESTAURANTS.stringValue -> budget.restaurants += amount
+                    Categories.SHOPPING.stringValue -> budget.shopping += amount
+                }
+
+                BudgetDAO().updateUserBudget(userId, budget)
             }
         }
     }

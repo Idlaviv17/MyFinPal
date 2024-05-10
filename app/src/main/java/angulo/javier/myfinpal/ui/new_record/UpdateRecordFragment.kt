@@ -12,9 +12,11 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import angulo.javier.myfinpal.Dao.BudgetDAO
 import angulo.javier.myfinpal.Dao.PaymentDAO
 import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentUpdateRecordBinding
+import angulo.javier.myfinpal.domain.Budget
 import angulo.javier.myfinpal.domain.Payment
 import angulo.javier.myfinpal.ui.history.HistoryDetailFragmentArgs
 import angulo.javier.myfinpal.util.Categories
@@ -39,6 +41,7 @@ class UpdateRecordFragment : Fragment() {
     private lateinit var recipient: String
     private lateinit var paymentMethod: String
     private lateinit var formCategory: String
+    private var actualAmount: Float = 0.0f
     private var formAmount: Float = 0.0f
     private lateinit var dateString: String
     private lateinit var formDescription: String
@@ -53,6 +56,7 @@ class UpdateRecordFragment : Fragment() {
 
         val args = HistoryDetailFragmentArgs.fromBundle(requireArguments())
         payment = args.payment
+        actualAmount = payment.amount
 
         database = Firebase.database.reference
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
@@ -63,7 +67,10 @@ class UpdateRecordFragment : Fragment() {
 
         binding.dateEt.setOnClickListener { showDatePicker() }
         binding.cancelBtn.setOnClickListener { findNavController().popBackStack() }
-        binding.updateBtn.setOnClickListener { updatePayment() }
+        binding.updateBtn.setOnClickListener {
+            updatePayment()
+            updateBudget()
+        }
 
         return root
     }
@@ -137,11 +144,33 @@ class UpdateRecordFragment : Fragment() {
             PaymentDAO().updatePayment(userId, payment.uid, payment) { databaseError, _ ->
                 if (databaseError == null) {
                     Toast.makeText(requireContext(), "Payment updated successfully", Toast.LENGTH_SHORT).show()
-                    clearForm()
                     findNavController().popBackStack()
+                    clearForm()
                 } else {
                     Toast.makeText(requireContext(), "Failed to update payment. Please try again.", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+    }
+
+    private fun updateBudget() {
+        val amount = payment.amount
+
+        BudgetDAO().readUserBudget(userId) { dataSnapshot ->
+            dataSnapshot.getValue(Budget::class.java)?.let { budget ->
+                val budgetChange = amount - actualAmount
+                budget.spendBudget += budgetChange
+
+                when (payment.category) {
+                    Categories.ACTIVITIES.stringValue -> budget.activities += budgetChange
+                    Categories.FOOD.stringValue -> budget.food += budgetChange
+                    Categories.HEALTH.stringValue -> budget.health += budgetChange
+                    Categories.MEMBERSHIPS.stringValue -> budget.memberships += budgetChange
+                    Categories.RESTAURANTS.stringValue -> budget.restaurants += budgetChange
+                    Categories.SHOPPING.stringValue -> budget.shopping += budgetChange
+                }
+
+                BudgetDAO().updateUserBudget(userId, budget)
             }
         }
     }
