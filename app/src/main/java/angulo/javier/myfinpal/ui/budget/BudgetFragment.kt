@@ -126,7 +126,7 @@ class BudgetFragment : Fragment() {
 
             foodBudget.text = textToDoubleFormat(budget?.food.toString())
             shoppingBudget.text = textToDoubleFormat(budget?.shopping.toString())
-            healthBudget.text = textToDoubleFormat(budget?.healthLimit.toString())
+            healthBudget.text = textToDoubleFormat(budget?.health.toString())
             activitiesBudget.text = textToDoubleFormat(budget?.activities.toString())
             membershipsBudget.text = textToDoubleFormat(budget?.memberships.toString())
             restaurantsBudget.text = textToDoubleFormat(budget?.restaurants.toString())
