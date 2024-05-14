@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/activity_configuration"
     tools:context=".ui.configuration.ConfigurationFragment">
 
     <TextView
@@ -17,5 +18,38 @@
         android:paddingRight="15dp"
         android:textColor="@color/black"
         android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/textViewUsernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/abel"
+        android:text="Username"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/abel"
+        android:text="Username"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Logout"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="20dp"
+        app:cornerRadius="20dp"/>
 
 </LinearLayout>
