@@ -219,10 +219,10 @@
                 android:id="@+id/return_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/minus_button"
                 android:background="@android:color/transparent"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                android:src="@drawable/arrow_back" />
 
             <TextView
                 android:layout_width="wrap_content"

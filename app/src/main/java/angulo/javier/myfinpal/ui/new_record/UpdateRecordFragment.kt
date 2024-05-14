@@ -107,7 +107,7 @@ class UpdateRecordFragment : Fragment() {
                 Categories.FOOD.stringValue -> { categoriesSpinner.setSelection(1) }
                 Categories.HEALTH.stringValue -> { categoriesSpinner.setSelection(2) }
                 Categories.MEMBERSHIPS.stringValue -> { categoriesSpinner.setSelection(3) }
-                Categories.RESTAURANTS.stringValue -> { categoriesSpinner.setSelection(4) }
+                Categories.SERVICES.stringValue -> { categoriesSpinner.setSelection(4) }
                 Categories.SHOPPING.stringValue -> { categoriesSpinner.setSelection(5) }
             }
 
@@ -166,7 +166,7 @@ class UpdateRecordFragment : Fragment() {
                     Categories.FOOD.stringValue -> budget.food += budgetChange
                     Categories.HEALTH.stringValue -> budget.health += budgetChange
                     Categories.MEMBERSHIPS.stringValue -> budget.memberships += budgetChange
-                    Categories.RESTAURANTS.stringValue -> budget.restaurants += budgetChange
+                    Categories.SERVICES.stringValue -> budget.service += budgetChange
                     Categories.SHOPPING.stringValue -> budget.shopping += budgetChange
                 }
 

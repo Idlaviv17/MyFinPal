@@ -110,7 +110,7 @@ class HistoryDetailFragment : Fragment() {
                     Categories.FOOD.stringValue -> budget.food -= amount
                     Categories.HEALTH.stringValue -> budget.health -= amount
                     Categories.MEMBERSHIPS.stringValue -> budget.memberships -= amount
-                    Categories.RESTAURANTS.stringValue -> budget.restaurants -= amount
+                    Categories.SERVICES.stringValue -> budget.service -= amount
                     Categories.SHOPPING.stringValue -> budget.shopping -= amount
                 }
 
