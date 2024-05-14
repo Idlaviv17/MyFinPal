@@ -38,14 +38,14 @@ class BudgetFragment : Fragment() {
     lateinit var healthBudget: TextView
     lateinit var activitiesBudget: TextView
     lateinit var membershipsBudget: TextView
-    lateinit var restaurantsBudget: TextView
+    lateinit var serviceBudget: TextView
 
     lateinit var foodBudgetLimit: TextView
     lateinit var shoppingBudgetLimit: TextView
     lateinit var healthBudgetLimit: TextView
     lateinit var activitiesBudgetLimit: TextView
     lateinit var membershipsBudgetLimit: TextView
-    lateinit var restaurantsBudgetLimit: TextView
+    lateinit var serviceBudgetLimit: TextView
 
     lateinit var progressBar: ProgressBar
 
@@ -74,14 +74,14 @@ class BudgetFragment : Fragment() {
         healthBudget = _binding!!.textBudgetMenuHealthNumber
         activitiesBudget = _binding!!.textBudgetMenuActivitieshNumber
         membershipsBudget = _binding!!.textBudgetMenuMembershipNumber
-        restaurantsBudget = _binding!!.textBudgetMenuRestaurantsNumber
+        serviceBudget = _binding!!.textBudgetMenuServiceNumber
 
         foodBudgetLimit = _binding!!.textBudgetMenuFoodLimitNumber
         shoppingBudgetLimit  = _binding!!.textBudgetMenuShoppingLimitNumber
         healthBudgetLimit  = _binding!!.textBudgetMenuHealthLimitNumber
         activitiesBudgetLimit  = _binding!!.textBudgetMenuActivitiesLimitNumber
         membershipsBudgetLimit  = _binding!!.textBudgetMenuMembershipLimitNumber
-        restaurantsBudgetLimit  = _binding!!.textBudgetMenuRestaurantsLimitNumber
+        serviceBudgetLimit  = _binding!!.textBudgetMenuServiceLimitNumber
 
         progressBar = _binding!!.progressBar
 
@@ -122,14 +122,14 @@ class BudgetFragment : Fragment() {
             healthBudgetLimit.text = textToDoubleFormat(budget?.healthLimit.toString())
             activitiesBudgetLimit.text = textToDoubleFormat(budget?.activitiesLimit.toString())
             membershipsBudgetLimit.text = textToDoubleFormat(budget?.membershipsLimit.toString())
-            restaurantsBudgetLimit.text = textToDoubleFormat(budget?.restaurantsLimit.toString())
+            serviceBudgetLimit.text = textToDoubleFormat(budget?.serviceLimit.toString())
 
             foodBudget.text = textToDoubleFormat(budget?.food.toString())
             shoppingBudget.text = textToDoubleFormat(budget?.shopping.toString())
             healthBudget.text = textToDoubleFormat(budget?.health.toString())
             activitiesBudget.text = textToDoubleFormat(budget?.activities.toString())
             membershipsBudget.text = textToDoubleFormat(budget?.memberships.toString())
-            restaurantsBudget.text = textToDoubleFormat(budget?.restaurants.toString())
+            serviceBudget.text = textToDoubleFormat(budget?.service.toString())
 
             val budgetLimitValue = budget?.budgetLimit?.toString()?.toDoubleOrNull() ?: 0.0
             val spendBudgetValue = budget?.spendBudget?.toString()?.toDoubleOrNull() ?: 0.0

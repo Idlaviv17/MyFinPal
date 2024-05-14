@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -44,12 +45,14 @@ class BudgetEditFragment : Fragment() {
     private lateinit var database: DatabaseReference
     lateinit var userId: String
 
+    lateinit var progressBar: ProgressBar
+
     private lateinit var textBudgetMenuFoodNumber: EditText
     private lateinit var textBudgetMenuShoppingNumber: EditText
     private lateinit var textBudgetMenuHealthNumber: EditText
     private lateinit var textBudgetMenuActivitiesNumber: EditText
     private lateinit var textBudgetMenuMembershipNumber: EditText
-    private lateinit var textBudgetMenuRestaurantNumber: EditText
+    private lateinit var textBudgetMenuServiceNumber: EditText
 
     private lateinit var textBudgetToSpend: TextView
 
@@ -77,12 +80,29 @@ class BudgetEditFragment : Fragment() {
         textBudgetMenuHealthNumber = binding.textBudgetMenuHealthNumber
         textBudgetMenuActivitiesNumber = binding.textBudgetMenuActivitiesNumber
         textBudgetMenuMembershipNumber = binding.textBudgetMenuMemberNumber
-        textBudgetMenuRestaurantNumber = binding.textBudgetMenuRestaurantsNumber
+        textBudgetMenuServiceNumber = binding.textBudgetMenuServiceNumber
         textBudgetToSpend = binding.textBudgetToSpend
+
+        progressBar = _binding!!.progressBar
 
         val budgetMenuButtonRestore = binding.budgetMenuButtonRestore
         val budgetMenuButtonAccept = binding.budgetMenuButtonAccept
         val budgetMenuButtonCancel = binding.budgetMenuButtonCancel
+
+        val budget = arguments?.getSerializable("budget") as? Budget
+
+        textBudgetMenuFoodNumber.setText(budget?.foodLimit.toString())
+        textBudgetMenuShoppingNumber.setText(budget?.shoppingLimit.toString())
+        textBudgetMenuHealthNumber.setText(budget?.healthLimit.toString())
+        textBudgetMenuActivitiesNumber.setText(budget?.activitiesLimit.toString())
+        textBudgetMenuMembershipNumber.setText(budget?.membershipsLimit.toString())
+        textBudgetMenuServiceNumber.setText(budget?.serviceLimit.toString())
+        textBudgetToSpend.setText(budget?.budgetLimit.toString())
+
+        val progress = (((budget?.spendBudget ?: 0.0) / budget?.budgetLimit.toString().toDouble()) * 100)
+        Log.d("BudgetFragment", "progress: $progress")
+        progressBar.max = 100
+        progressBar.progress = progress.toInt()
 
         // Set up TextWatcher
         textBudgetMenuFoodNumber.addTextChangedListener(TextWatcherListener())
@@ -90,7 +110,7 @@ class BudgetEditFragment : Fragment() {
         textBudgetMenuHealthNumber.addTextChangedListener(TextWatcherListener())
         textBudgetMenuActivitiesNumber.addTextChangedListener(TextWatcherListener())
         textBudgetMenuMembershipNumber.addTextChangedListener(TextWatcherListener())
-        textBudgetMenuRestaurantNumber.addTextChangedListener(TextWatcherListener())
+        textBudgetMenuServiceNumber.addTextChangedListener(TextWatcherListener())
 
         // Set up button click listeners
         val budgetMenuFoodButtonDown = binding.budgetMenuFoodButtonDown
@@ -103,8 +123,8 @@ class BudgetEditFragment : Fragment() {
         val budgetMenuActivitiesButtonUp = binding.budgetMenuActivitiesButtonUp
         val budgetMenuMembershipButtonDown = binding.budgetMenuMembershipButtonDown
         val budgetMenuMembershipButtonUp = binding.budgetMenuMembershipButtonUp
-        val budgetMenuRestaurantButtonDown = binding.budgetMenuRestaurantsButtonDown
-        val budgetMenuRestaurantButtonUp = binding.budgetMenuRestaurantsButtonUp
+        val budgetMenuServiceButtonDown = binding.budgetMenuServiceButtonDown
+        val budgetMenuServiceButtonUp = binding.budgetMenuServiceButtonUp
 
 
         budgetMenuFoodButtonDown.setOnClickListener { decreaseBudgetValue(textBudgetMenuFoodNumber) }
@@ -117,8 +137,8 @@ class BudgetEditFragment : Fragment() {
         budgetMenuActivitiesButtonUp.setOnClickListener { increaseBudgetValue(textBudgetMenuActivitiesNumber) }
         budgetMenuMembershipButtonDown.setOnClickListener { decreaseBudgetValue(textBudgetMenuMembershipNumber) }
         budgetMenuMembershipButtonUp.setOnClickListener { increaseBudgetValue(textBudgetMenuMembershipNumber) }
-        budgetMenuRestaurantButtonDown.setOnClickListener { decreaseBudgetValue(textBudgetMenuRestaurantNumber) }
-        budgetMenuRestaurantButtonUp.setOnClickListener { increaseBudgetValue(textBudgetMenuRestaurantNumber) }
+        budgetMenuServiceButtonDown.setOnClickListener { decreaseBudgetValue(textBudgetMenuServiceNumber) }
+        budgetMenuServiceButtonUp.setOnClickListener { increaseBudgetValue(textBudgetMenuServiceNumber) }
 
         budgetMenuButtonRestore.setOnClickListener {
             textBudgetMenuFoodNumber.setText("")
@@ -126,7 +146,7 @@ class BudgetEditFragment : Fragment() {
             textBudgetMenuHealthNumber.setText("")
             textBudgetMenuActivitiesNumber.setText("")
             textBudgetMenuMembershipNumber.setText("")
-            textBudgetMenuRestaurantNumber.setText("")
+            textBudgetMenuServiceNumber.setText("")
         }
 
         budgetMenuButtonAccept.setOnClickListener{
@@ -186,9 +206,16 @@ class BudgetEditFragment : Fragment() {
                 (textBudgetMenuHealthNumber.text.toString().toDoubleOrNull() ?: 0.0) +
                 (textBudgetMenuActivitiesNumber.text.toString().toDoubleOrNull() ?: 0.0) +
                 (textBudgetMenuMembershipNumber.text.toString().toDoubleOrNull() ?: 0.0) +
-                (textBudgetMenuRestaurantNumber.text.toString().toDoubleOrNull() ?: 0.0)
+                (textBudgetMenuServiceNumber.text.toString().toDoubleOrNull() ?: 0.0)
 
         textBudgetToSpend.text = totalBudget.toString()
+
+        val budget = arguments?.getSerializable("budget") as? Budget
+
+        val progress = (((budget?.spendBudget ?: 0.0) / totalBudget.toString().toDouble()) * 100)
+        Log.d("BudgetFragment", "progress: $progress")
+        progressBar.max = 100
+        progressBar.progress = progress.toInt()
     }
 
     private fun updateBudgetInfo(){
@@ -197,7 +224,7 @@ class BudgetEditFragment : Fragment() {
         val healthNumber = textBudgetMenuHealthNumber.text.toString().toDoubleOrNull() ?: 0.0
         val activitiesNumber = textBudgetMenuActivitiesNumber.text.toString().toDoubleOrNull() ?: 0.0
         val membershipNumber = textBudgetMenuMembershipNumber.text.toString().toDoubleOrNull() ?: 0.0
-        val restaurantNumber = textBudgetMenuRestaurantNumber.text.toString().toDoubleOrNull() ?: 0.0
+        val restaurantNumber = textBudgetMenuServiceNumber.text.toString().toDoubleOrNull() ?: 0.0
         val budgetLimit = textBudgetToSpend.text.toString().toDoubleOrNull() ?: 0.0
 
         //val args = BudgetEditFragmentArgs.fromBundle(requireArguments())
@@ -211,7 +238,7 @@ class BudgetEditFragment : Fragment() {
             healthLimit = healthNumber,
             activitiesLimit = activitiesNumber,
             membershipsLimit = membershipNumber,
-            restaurantsLimit = restaurantNumber
+            serviceLimit = restaurantNumber
         )
         if (budgetCopy != null) {
             budgetDao.updateUserBudget(userId, budgetCopy)
