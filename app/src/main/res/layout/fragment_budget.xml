@@ -589,15 +589,15 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/budget_menu_restaurants"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/budget_menu_service" />
                 </RelativeLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:paddingTop="10dp"
-                    android:text="@string/budget_menu_restaurants"
+                    android:text="@string/budget_menu_service"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"
                     />
@@ -605,7 +605,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/textBudgetMenuRestaurantsNumber"
+                        android:id="@+id/textBudgetMenuServiceNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/abel"
@@ -624,7 +624,7 @@
                         android:textAlignment="center"
                         />
                     <TextView
-                        android:id="@+id/textBudgetMenuRestaurantsLimitNumber"
+                        android:id="@+id/textBudgetMenuServiceLimitNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/abel"

@@ -10,6 +10,7 @@
     <string name="budget_menu_health">Health</string>
     <string name="budget_menu_activities">Activities</string>
     <string name="budget_menu_memberships">Memberships</string>
+    <string name="budget_menu_service">Service</string>
     <string name="budget_menu_restaurants">Restaurants</string>
     <string name="budget_summary_month">Budget of the month</string>
     <string name="budget_summary_current_budget">Current budget:</string>
