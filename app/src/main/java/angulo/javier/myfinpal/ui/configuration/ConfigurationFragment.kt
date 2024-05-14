@@ -16,6 +16,7 @@ import angulo.javier.myfinpal.LoginActivity
 import android.text.InputType
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentConfigurationBinding
 import com.google.firebase.Firebase
@@ -63,13 +64,6 @@ class ConfigurationFragment : Fragment() {
 
         auth = Firebase.auth
 
-        btn_logout = _binding!!.btnLogout
-        btn_logout.setOnClickListener {
-            auth.signOut()
-            var intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
         // Show AlertDialog when "Change Username" TextView is clicked
         tvChangeUsername = _binding!!.tvChangeUsername
         tvChangeUsername.setOnClickListener {
@@ -80,6 +74,18 @@ class ConfigurationFragment : Fragment() {
         tvChangePassword = _binding!!.tvChangePassword
         tvChangePassword.setOnClickListener {
             showChangePasswordDialog()
+        }
+
+        btn_logout = _binding!!.btnLogout
+        btn_logout.setOnClickListener {
+            auth.signOut()
+            // Clear the back stack
+            activity?.supportFragmentManager?.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            // Navigate to the LoginActivity
+            val intent = Intent(context, LoginActivity::class.java)
+            // Clear the existing activities
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
         return root
