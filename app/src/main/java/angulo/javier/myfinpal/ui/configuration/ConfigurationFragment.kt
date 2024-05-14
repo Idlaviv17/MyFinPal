@@ -16,7 +16,6 @@ import angulo.javier.myfinpal.LoginActivity
 import android.text.InputType
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.core.view.marginLeft
 import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentConfigurationBinding
 import com.google.firebase.Firebase
@@ -36,6 +35,8 @@ class ConfigurationFragment : Fragment() {
     private lateinit var auth : FirebaseAuth
     private lateinit var database: DatabaseReference
     lateinit var tvUsername: TextView
+    lateinit var tvChangeUsername: TextView
+    lateinit var tvChangePassword: TextView
     lateinit var btn_logout: Button
     lateinit var userId: String
 
@@ -60,18 +61,23 @@ class ConfigurationFragment : Fragment() {
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
         retrieveUsername()
 
-        btn_logout = _binding!!.btnLogout
-
         auth = Firebase.auth
 
+        btn_logout = _binding!!.btnLogout
         btn_logout.setOnClickListener {
             auth.signOut()
             var intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
 
+        // Show AlertDialog when "Change Username" TextView is clicked
+        tvChangeUsername = _binding!!.tvChangeUsername
+        tvChangeUsername.setOnClickListener {
+            showChangeUsernameDialog()
+        }
+
         // Show AlertDialog when "Change Password" TextView is clicked
-        val tvChangePassword = _binding!!.tvChangePassword
+        tvChangePassword = _binding!!.tvChangePassword
         tvChangePassword.setOnClickListener {
             showChangePasswordDialog()
         }
@@ -99,6 +105,61 @@ class ConfigurationFragment : Fragment() {
         })
     }
 
+    private fun showChangeUsernameDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        val etNewUsername = EditText(requireContext())
+
+        etNewUsername.hint = "New Username"
+
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        val margin = resources.getDimensionPixelSize(R.dimen.dialog_edit_text_margin)
+        layoutParams.setMargins(margin, margin, margin, margin)
+        etNewUsername.layoutParams = layoutParams
+
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
+        layout.addView(etNewUsername)
+
+        builder.setView(layout)
+            .setTitle("Change Username")
+            .setPositiveButton("Change") { dialog, _ ->
+                val newUsername = etNewUsername.text.toString().trim()
+                if (newUsername.isNotEmpty()) {
+                    updateUsername(newUsername)
+                } else {
+                    Toast.makeText(context, "Please enter a new username", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_corners)
+        alertDialog.show()
+    }
+
+    private fun updateUsername(newUsername: String) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val userId = user?.uid ?: ""
+        val userRef = database.child("users").child(userId)
+
+        userRef.child("username").setValue(newUsername)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Username updated successfully", Toast.LENGTH_SHORT).show()
+                // Update the UI with the new username if needed
+                tvUsername.text = newUsername
+            }
+            .addOnFailureListener { e ->
+                Log.e("UpdateUsername", "Failed to update username", e)
+                Toast.makeText(context, "Failed to update username", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun showChangePasswordDialog() {
         val builder = AlertDialog.Builder(requireContext())
         val etCurrentPassword = EditText(requireContext())
@@ -110,7 +171,6 @@ class ConfigurationFragment : Fragment() {
         etNewPassword.hint = "New Password"
         etNewPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
-        // Adjust margins for the EditTexts
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -157,8 +217,6 @@ class ConfigurationFragment : Fragment() {
         alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_corners)
 
         alertDialog.show()
-
-        //alertDialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
     }
 
     private fun changePassword(newPassword: String) {
@@ -173,11 +231,9 @@ class ConfigurationFragment : Fragment() {
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("ChangePassword", "Password updated successfully")
-                    // Show confirmation message
                     Toast.makeText(context, "Password updated successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("ChangePassword", "Failed to update password: ${task.exception}")
-                    // Show error message
                     Toast.makeText(context, "Failed to update password", Toast.LENGTH_SHORT).show()
                 }
             }
