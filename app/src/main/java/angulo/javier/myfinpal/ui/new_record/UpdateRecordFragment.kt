@@ -3,6 +3,7 @@ package angulo.javier.myfinpal.ui.new_record
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.InputFilter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ import com.google.firebase.database.database
 import java.text.SimpleDateFormat
 import java.util.Calendar.*
 import java.util.Locale
+import kotlin.math.log
 
 class UpdateRecordFragment : Fragment() {
 
@@ -41,6 +43,10 @@ class UpdateRecordFragment : Fragment() {
     private lateinit var recipient: String
     private lateinit var paymentMethod: String
     private lateinit var formCategory: String
+
+    private lateinit var paymentCategory: String
+    private var paymentChange: Float = 0.0f
+
     private var actualAmount: Float = 0.0f
     private var formAmount: Float = 0.0f
     private lateinit var dateString: String
@@ -94,21 +100,52 @@ class UpdateRecordFragment : Fragment() {
     private fun loadPayment() {
         binding.apply {
             recipientEt.setText(payment.title)
-            when(payment.method) {
-                PaymentMethods.BANK_TRANSFER.stringValue -> { paymentMethodsSpinner.setSelection(0) }
-                PaymentMethods.CASH.stringValue -> { paymentMethodsSpinner.setSelection(1) }
-                PaymentMethods.CREDIT_CARD.stringValue -> { paymentMethodsSpinner.setSelection(2) }
-                PaymentMethods.DEBIT_CARD.stringValue -> { paymentMethodsSpinner.setSelection(3) }
-                PaymentMethods.PAYPAL.stringValue -> { paymentMethodsSpinner.setSelection(4) }
+            when (payment.method) {
+                PaymentMethods.BANK_TRANSFER.stringValue -> {
+                    paymentMethodsSpinner.setSelection(0)
+                }
+
+                PaymentMethods.CASH.stringValue -> {
+                    paymentMethodsSpinner.setSelection(1)
+                }
+
+                PaymentMethods.CREDIT_CARD.stringValue -> {
+                    paymentMethodsSpinner.setSelection(2)
+                }
+
+                PaymentMethods.DEBIT_CARD.stringValue -> {
+                    paymentMethodsSpinner.setSelection(3)
+                }
+
+                PaymentMethods.PAYPAL.stringValue -> {
+                    paymentMethodsSpinner.setSelection(4)
+                }
             }
 
-            when(payment.category) {
-                Categories.ACTIVITIES.stringValue -> { categoriesSpinner.setSelection(0) }
-                Categories.FOOD.stringValue -> { categoriesSpinner.setSelection(1) }
-                Categories.HEALTH.stringValue -> { categoriesSpinner.setSelection(2) }
-                Categories.MEMBERSHIPS.stringValue -> { categoriesSpinner.setSelection(3) }
-                Categories.SERVICES.stringValue -> { categoriesSpinner.setSelection(4) }
-                Categories.SHOPPING.stringValue -> { categoriesSpinner.setSelection(5) }
+            when (payment.category) {
+                Categories.ACTIVITIES.stringValue -> {
+                    categoriesSpinner.setSelection(0)
+                }
+
+                Categories.FOOD.stringValue -> {
+                    categoriesSpinner.setSelection(1)
+                }
+
+                Categories.HEALTH.stringValue -> {
+                    categoriesSpinner.setSelection(2)
+                }
+
+                Categories.MEMBERSHIPS.stringValue -> {
+                    categoriesSpinner.setSelection(3)
+                }
+
+                Categories.SERVICES.stringValue -> {
+                    categoriesSpinner.setSelection(4)
+                }
+
+                Categories.SHOPPING.stringValue -> {
+                    categoriesSpinner.setSelection(5)
+                }
             }
 
             val formattedAmount = if (payment.amount % 1 == 0.0f) {
@@ -131,6 +168,9 @@ class UpdateRecordFragment : Fragment() {
         dateString = binding.dateEt.text.toString()
         formDescription = binding.descriptionEt.text.toString()
 
+        paymentCategory = payment.category
+        paymentChange = payment.amount
+
         if (hasChanges() && isValid()) {
             payment.apply {
                 title = recipient
@@ -141,33 +181,83 @@ class UpdateRecordFragment : Fragment() {
                 payment.description = formDescription
             }
 
+
             PaymentDAO().updatePayment(userId, payment.uid, payment) { databaseError, _ ->
                 if (databaseError == null) {
-                    Toast.makeText(requireContext(), "Payment updated successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Payment updated successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     findNavController().popBackStack()
                     clearForm()
                 } else {
-                    Toast.makeText(requireContext(), "Failed to update payment. Please try again.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to update payment. Please try again.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
     }
 
     private fun updateBudget() {
-        val amount = payment.amount
-
         BudgetDAO().readUserBudget(userId) { dataSnapshot ->
             dataSnapshot.getValue(Budget::class.java)?.let { budget ->
-                val budgetChange = amount - actualAmount
-                budget.spendBudget += budgetChange
+                val budgetChange = paymentChange
+                val dif = paymentChange - payment.amount
+                budget.spendBudget -= budgetChange
+                budget.spendBudget += payment.amount
 
-                when (payment.category) {
-                    Categories.ACTIVITIES.stringValue -> budget.activities += budgetChange
-                    Categories.FOOD.stringValue -> budget.food += budgetChange
-                    Categories.HEALTH.stringValue -> budget.health += budgetChange
-                    Categories.MEMBERSHIPS.stringValue -> budget.memberships += budgetChange
-                    Categories.SERVICES.stringValue -> budget.service += budgetChange
-                    Categories.SHOPPING.stringValue -> budget.shopping += budgetChange
+                if (formCategory != paymentCategory && payment.amount == paymentChange) {
+                    when (formCategory) {
+                        Categories.ACTIVITIES.stringValue -> budget.activities += payment.amount
+                        Categories.FOOD.stringValue -> budget.food += payment.amount
+                        Categories.HEALTH.stringValue -> budget.health += payment.amount
+                        Categories.MEMBERSHIPS.stringValue -> budget.memberships += payment.amount
+                        Categories.SERVICES.stringValue -> budget.service += payment.amount
+                        Categories.SHOPPING.stringValue -> budget.shopping += payment.amount
+                    }
+                    when (paymentCategory) {
+                        Categories.ACTIVITIES.stringValue -> budget.activities -= budgetChange
+                        Categories.FOOD.stringValue -> budget.food -= budgetChange
+                        Categories.HEALTH.stringValue -> budget.health -= budgetChange
+                        Categories.MEMBERSHIPS.stringValue -> budget.memberships -= budgetChange
+                        Categories.SERVICES.stringValue -> budget.service -= budgetChange
+                        Categories.SHOPPING.stringValue -> budget.shopping -= budgetChange
+                    }
+                }
+
+                if (payment.amount != paymentChange && formCategory == paymentCategory) {
+                    when (payment.category) {
+                        Categories.ACTIVITIES.stringValue -> budget.activities -= dif
+                        Categories.FOOD.stringValue -> budget.food -= dif
+                        Categories.HEALTH.stringValue -> budget.health -= dif
+                        Categories.MEMBERSHIPS.stringValue -> budget.memberships -= dif
+                        Categories.SERVICES.stringValue -> budget.service -= dif
+                        Categories.SHOPPING.stringValue -> budget.shopping -= dif
+                    }
+                }
+
+                if (formCategory != paymentCategory && payment.amount != paymentChange) {
+                    when (paymentCategory) {
+                        Categories.ACTIVITIES.stringValue -> budget.activities -= budgetChange
+                        Categories.FOOD.stringValue -> budget.food -= budgetChange
+                        Categories.HEALTH.stringValue -> budget.health -= budgetChange
+                        Categories.MEMBERSHIPS.stringValue -> budget.memberships -= budgetChange
+                        Categories.SERVICES.stringValue -> budget.service -= budgetChange
+                        Categories.SHOPPING.stringValue -> budget.shopping -= budgetChange
+                    }
+
+                    when (formCategory) {
+                        Categories.ACTIVITIES.stringValue -> budget.activities += payment.amount
+                        Categories.FOOD.stringValue -> budget.food += payment.amount
+                        Categories.HEALTH.stringValue -> budget.health += payment.amount
+                        Categories.MEMBERSHIPS.stringValue -> budget.memberships += payment.amount
+                        Categories.SERVICES.stringValue -> budget.service += payment.amount
+                        Categories.SHOPPING.stringValue -> budget.shopping += payment.amount
+                    }
                 }
 
                 BudgetDAO().updateUserBudget(userId, budget)
@@ -191,11 +281,16 @@ class UpdateRecordFragment : Fragment() {
                 return false
             }
             if (paymentMethod.isEmpty()) {
-                Toast.makeText(requireContext(), "Payment method cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Payment method cannot be empty",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return false
             }
             if (formCategory.isEmpty()) {
-                Toast.makeText(requireContext(), "Category cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Category cannot be empty", Toast.LENGTH_SHORT)
+                    .show()
                 return false
             }
             if (formAmount <= 0f) {
@@ -245,11 +340,17 @@ class UpdateRecordFragment : Fragment() {
         datePickerDialog.show()
     }
 
-    private fun limitDecimalPlaces(editText: EditText, maxDigitsBeforeDecimalPoint: Int, maxDigitsAfterDecimalPoint: Int) {
+    private fun limitDecimalPlaces(
+        editText: EditText,
+        maxDigitsBeforeDecimalPoint: Int,
+        maxDigitsAfterDecimalPoint: Int
+    ) {
         val filter = InputFilter { source, start, end, dest, dstart, dend ->
             val builder = StringBuilder(dest)
             builder.replace(dstart, dend, source?.subSequence(start, end).toString())
-            if (!builder.toString().matches(Regex("^\\d{0,$maxDigitsBeforeDecimalPoint}(\\.\\d{0,$maxDigitsAfterDecimalPoint})?$"))) {
+            if (!builder.toString()
+                    .matches(Regex("^\\d{0,$maxDigitsBeforeDecimalPoint}(\\.\\d{0,$maxDigitsAfterDecimalPoint})?$"))
+            ) {
                 if (source!!.isEmpty()) dest?.subSequence(dstart, dend) else ""
             } else null
         }
