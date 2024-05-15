@@ -72,8 +72,8 @@
         android:name="angulo.javier.myfinpal.ui.budget.BudgetEditFragment"
         tools:layout="@layout/fragment_budget_edit" >
         <argument
-            android:name="budgetToSpend"
-            app:argType="string" />
+            android:name="budget"
+            app:argType="angulo.javier.myfinpal.domain.Budget" />
         <action
             android:id="@+id/action_navigation_budget_edit_to_navigation_budget"
             app:destination="@id/navigation_budget" />
@@ -88,6 +88,13 @@
         <argument
             android:name="payment"
             app:argType="angulo.javier.myfinpal.domain.Payment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_configuration"
+        android:name="angulo.javier.myfinpal.ui.configuration.ConfigurationFragment"
+        android:label="@string/title_configuration"
+        tools:layout="@layout/fragment_configuration" >
     </fragment>
 
 </navigation>

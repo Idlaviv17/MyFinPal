@@ -1,5 +1,6 @@
 package angulo.javier.myfinpal.ui.history
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import angulo.javier.myfinpal.Dao.BudgetDAO
 import angulo.javier.myfinpal.Dao.PaymentDAO
 import angulo.javier.myfinpal.databinding.FragmentHistoryDetailBinding
-import angulo.javier.myfinpal.ui.new_record.NewRecordFragmentDirections
+import angulo.javier.myfinpal.domain.Budget
+import angulo.javier.myfinpal.domain.Payment
+import angulo.javier.myfinpal.util.Categories
 import angulo.javier.myfinpal.util.IconHandler
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +27,8 @@ class HistoryDetailFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var userId: String
 
+    private lateinit var payment: Payment
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +37,7 @@ class HistoryDetailFragment : Fragment() {
         val root: View = binding.root
 
         val args = HistoryDetailFragmentArgs.fromBundle(requireArguments())
-        val payment = args.payment
+        payment = args.payment
 
         database = Firebase.database.reference
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
@@ -41,14 +47,8 @@ class HistoryDetailFragment : Fragment() {
         }
 
         binding.deleteBtn.setOnClickListener {
-            PaymentDAO().deletePayment(userId, payment.uid, ) { databaseError, _ ->
-                if (databaseError == null) {
-                    Toast.makeText(requireContext(), "Payment deleted successfully", Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(requireContext(), "Failed to delete payment. Please try again.", Toast.LENGTH_SHORT).show()
-                }
-            }
+            deletePayment()
+            updateBudget()
         }
 
         binding.updateBtn.setOnClickListener {
@@ -74,7 +74,50 @@ class HistoryDetailFragment : Fragment() {
         return root
     }
 
+    private fun deletePayment() {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.apply {
+            setTitle("Delete Payment")
+            setMessage("Are you sure you want to delete this payment?")
+            setPositiveButton("Delete") { dialog, _ ->
+                PaymentDAO().deletePayment(userId, payment.uid) { databaseError, _ ->
+                    if (databaseError == null) {
+                        Toast.makeText(requireContext(), "Payment deleted successfully", Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to delete payment. Please try again.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                dialog.dismiss()
+            }
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
 
+    private fun updateBudget() {
+        val amount = payment.amount
+
+        BudgetDAO().readUserBudget(userId) { dataSnapshot ->
+            dataSnapshot.getValue(Budget::class.java)?.let { budget ->
+                budget.spendBudget -= amount
+
+                when (payment.category) {
+                    Categories.ACTIVITIES.stringValue -> budget.activities -= amount
+                    Categories.FOOD.stringValue -> budget.food -= amount
+                    Categories.HEALTH.stringValue -> budget.health -= amount
+                    Categories.MEMBERSHIPS.stringValue -> budget.memberships -= amount
+                    Categories.SERVICES.stringValue -> budget.service -= amount
+                    Categories.SHOPPING.stringValue -> budget.shopping -= amount
+                }
+
+                BudgetDAO().updateUserBudget(userId, budget)
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

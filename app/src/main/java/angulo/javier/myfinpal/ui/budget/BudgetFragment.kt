@@ -5,23 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import angulo.javier.myfinpal.Dao.BudgetDAO
-import angulo.javier.myfinpal.R
 import angulo.javier.myfinpal.databinding.FragmentBudgetBinding
 import angulo.javier.myfinpal.domain.Budget
-import angulo.javier.myfinpal.ui.history.HistoryViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
 class BudgetFragment : Fragment() {
@@ -35,14 +29,24 @@ class BudgetFragment : Fragment() {
 
     private lateinit var database: DatabaseReference
     lateinit var userId: String
+
     lateinit var budgetToSpend: TextView
     lateinit var budgetLimit: TextView
+
     lateinit var foodBudget: TextView
     lateinit var shoppingBudget: TextView
     lateinit var healthBudget: TextView
     lateinit var activitiesBudget: TextView
     lateinit var membershipsBudget: TextView
-    lateinit var restaurantsBudget: TextView
+    lateinit var serviceBudget: TextView
+
+    lateinit var foodBudgetLimit: TextView
+    lateinit var shoppingBudgetLimit: TextView
+    lateinit var healthBudgetLimit: TextView
+    lateinit var activitiesBudgetLimit: TextView
+    lateinit var membershipsBudgetLimit: TextView
+    lateinit var serviceBudgetLimit: TextView
+
     lateinit var progressBar: ProgressBar
 
 
@@ -61,14 +65,23 @@ class BudgetFragment : Fragment() {
         }
 
         database = Firebase.database.reference
+
         budgetLimit = _binding!!.textBudgetLimit
         budgetToSpend = _binding!!.textBudgetToSpend
+
         foodBudget = _binding!!.textBudgetMenuFoodNumber
         shoppingBudget = _binding!!.textBudgetMenuShoppingNumber
         healthBudget = _binding!!.textBudgetMenuHealthNumber
         activitiesBudget = _binding!!.textBudgetMenuActivitieshNumber
         membershipsBudget = _binding!!.textBudgetMenuMembershipNumber
-        restaurantsBudget = _binding!!.textBudgetMenuRestaurantsNumber
+        serviceBudget = _binding!!.textBudgetMenuServiceNumber
+
+        foodBudgetLimit = _binding!!.textBudgetMenuFoodLimitNumber
+        shoppingBudgetLimit  = _binding!!.textBudgetMenuShoppingLimitNumber
+        healthBudgetLimit  = _binding!!.textBudgetMenuHealthLimitNumber
+        activitiesBudgetLimit  = _binding!!.textBudgetMenuActivitiesLimitNumber
+        membershipsBudgetLimit  = _binding!!.textBudgetMenuMembershipLimitNumber
+        serviceBudgetLimit  = _binding!!.textBudgetMenuServiceLimitNumber
 
         progressBar = _binding!!.progressBar
 
@@ -84,24 +97,39 @@ class BudgetFragment : Fragment() {
 
     private fun navigateToEditBudget() {
         // Navegación utilizando NavController
-        var spendBudget = budgetToSpend.text.toString()
-        spendBudget = spendBudget.replace(Regex("[^\\d.]"), "")
-        val action = BudgetFragmentDirections.actionNavigationBudgetToNavigationBudgetEdit(spendBudget)
-        findNavController().navigate(action)
+        //var spendBudget = budgetToSpend.text.toString()
+        budgetDao.readUserBudget(userId) { dataSnapshot ->
+            val budget = dataSnapshot.getValue(Budget::class.java)
+            //spendBudget = spendBudget.replace(Regex("[^\\d.]"), "")
+            budget?.let {
+                val action = BudgetFragmentDirections.actionNavigationBudgetToNavigationBudgetEdit(it)
+                findNavController().navigate(action)
+            }
+        }
+
     }
 
     private fun showBudget() {
         budgetDao.readUserBudget(userId) { dataSnapshot ->
             val budget = dataSnapshot.getValue(Budget::class.java)
             Log.d("BudgetFragment", "Budget data: $budget")
+
             budgetLimit.text = textToDoubleFormat(budget?.budgetLimit.toString())
             budgetToSpend.text = textToDoubleFormat(budget?.spendBudget.toString())
+
+            foodBudgetLimit.text = textToDoubleFormat(budget?.foodLimit.toString())
+            shoppingBudgetLimit.text = textToDoubleFormat(budget?.shoppingLimit.toString())
+            healthBudgetLimit.text = textToDoubleFormat(budget?.healthLimit.toString())
+            activitiesBudgetLimit.text = textToDoubleFormat(budget?.activitiesLimit.toString())
+            membershipsBudgetLimit.text = textToDoubleFormat(budget?.membershipsLimit.toString())
+            serviceBudgetLimit.text = textToDoubleFormat(budget?.serviceLimit.toString())
+
             foodBudget.text = textToDoubleFormat(budget?.food.toString())
             shoppingBudget.text = textToDoubleFormat(budget?.shopping.toString())
             healthBudget.text = textToDoubleFormat(budget?.health.toString())
             activitiesBudget.text = textToDoubleFormat(budget?.activities.toString())
             membershipsBudget.text = textToDoubleFormat(budget?.memberships.toString())
-            restaurantsBudget.text = textToDoubleFormat(budget?.restaurants.toString())
+            serviceBudget.text = textToDoubleFormat(budget?.service.toString())
 
             val budgetLimitValue = budget?.budgetLimit?.toString()?.toDoubleOrNull() ?: 0.0
             val spendBudgetValue = budget?.spendBudget?.toString()?.toDoubleOrNull() ?: 0.0

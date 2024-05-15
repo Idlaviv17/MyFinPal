@@ -26,9 +26,9 @@ object IconHandler {
                 iconBgImageView.setBackgroundResource(R.drawable.budget_menu_membership_background)
                 iconImageView.setImageResource(R.drawable.budget_menu_membership)
             }
-            Categories.RESTAURANTS.stringValue -> {
+            Categories.SERVICES.stringValue -> {
                 iconBgImageView.setBackgroundResource(R.drawable.budget_menu_restaurants_background)
-                iconImageView.setImageResource(R.drawable.budget_menu_restaurants)
+                iconImageView.setImageResource(R.drawable.budget_menu_service)
             }
         }
     }

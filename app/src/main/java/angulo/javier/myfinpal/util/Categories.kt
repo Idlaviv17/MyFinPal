@@ -6,5 +6,5 @@ enum class Categories(val stringValue: String) {
     HEALTH("Health"),
     ACTIVITIES("Activities"),
     MEMBERSHIPS("Memberships"),
-    RESTAURANTS("Restaurants")
+    SERVICES("Services")
 }

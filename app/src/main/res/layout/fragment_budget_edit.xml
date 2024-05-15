@@ -78,22 +78,18 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-            <ImageView
-                android:id="@+id/budgetSummaryBarBackground"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/budget_summary_bar_background"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/budget_summary_bar"
-                android:layout_alignRight="@+id/budgetSummaryBarBackground"/>
-        </RelativeLayout>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                style="@style/CircularProgressBar"
+                android:progress="50"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ScrollView
@@ -441,19 +437,19 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/budget_menu_restaurants"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/budget_menu_service" />
                 </RelativeLayout>
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
                     android:textAlignment="center"
-                    android:text="@string/budget_menu_restaurants"
+                    android:text="@string/budget_menu_service"
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
-                    android:id="@+id/budgetMenuRestaurantsButtonDown"
+                    android:id="@+id/budgetMenuServiceButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_down"/>
@@ -465,7 +461,7 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <EditText
-                    android:id="@+id/textBudgetMenuRestaurantsNumber"
+                    android:id="@+id/textBudgetMenuServiceNumber"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/abel"
@@ -475,7 +471,7 @@
                     android:textColor="@color/gray_budget_text"
                     android:textSize="14sp"/>
                 <ImageView
-                    android:id="@+id/budgetMenuRestaurantsButtonUp"
+                    android:id="@+id/budgetMenuServiceButtonUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/edit_arrow_up"/>
